@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Original photo files (the site uses the processed copies in img/)
+/*.jpeg
+/*.jpg
+/*.png
+/*.heic

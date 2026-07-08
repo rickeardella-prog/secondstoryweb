@@ -11,7 +11,7 @@
   <meta property="og:description" content="Every nonprofit deserves a second story. Fundraising program rebuilds, development operations, and ongoing fractional support.">
   <meta property="og:type" content="website">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191511'/%3E%3Cpath d='M20 40c0 4.4 4.5 7 11 7 7.2 0 12-3.2 12-8.6 0-4.8-3.4-7-9.8-8.6l-3.5-.9c-4-1-5.7-2.2-5.7-4.5 0-2.7 2.7-4.4 6.8-4.4 4.3 0 6.9 1.8 7.3 4.8h5.5c-.3-5.7-5.2-9.4-12.7-9.4-7.1 0-12.2 3.6-12.2 9.2 0 4.6 3.2 6.9 9.2 8.4l3.6.9c4.4 1.1 6.2 2.3 6.2 4.8 0 2.9-3 4.7-7.5 4.7-4.7 0-7.7-1.9-8.2-5h-5.5z' fill='%23E5694E'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E4573D'/%3E%3Cpath d='M20 40c0 4.4 4.5 7 11 7 7.2 0 12-3.2 12-8.6 0-4.8-3.4-7-9.8-8.6l-3.5-.9c-4-1-5.7-2.2-5.7-4.5 0-2.7 2.7-4.4 6.8-4.4 4.3 0 6.9 1.8 7.3 4.8h5.5c-.3-5.7-5.2-9.4-12.7-9.4-7.1 0-12.2 3.6-12.2 9.2 0 4.6 3.2 6.9 9.2 8.4l3.6.9c4.4 1.1 6.2 2.3 6.2 4.8 0 2.9-3 4.7-7.5 4.7-4.7 0-7.7-1.9-8.2-5h-5.5z' fill='%23FFFCF7'/%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,23 +22,28 @@
        Design tokens — recolor the whole site from here
        ============================================================ */
     :root {
-      --bg: #191511;          /* warm ink */
-      --bg-raised: #201B16;
-      --line: rgba(242, 236, 226, 0.12);
-      --text: #F2ECE2;        /* cream */
-      --text-dim: rgba(242, 236, 226, 0.64);
-      --text-faint: rgba(242, 236, 226, 0.42);
+      --paper: #FFFCF7;        /* warm white base */
+      --paper-soft: #F8F2E7;   /* cream band for alternating sections */
+      --ink: #26221D;
+      --ink-dim: rgba(38, 34, 29, 0.70);
+      --ink-faint: rgba(38, 34, 29, 0.48);
+      --line: rgba(38, 34, 29, 0.14);
 
-      --coral: #E5694E;       /* the one accent */
-      --coral-deep: #D15A40;
-      --ink-on-coral: #241209;
+      --coral: #E4573D;        /* primary accent */
+      --coral-deep: #C7442B;   /* text-safe / hover coral */
+      --teal: #14766B;
+      --marigold: #DE9A2E;
+
+      --blush: #FAE7E0;        /* card tints */
+      --mint:  #E3EFE9;
+      --gold:  #F8EDD5;
 
       --font-display: "Fraunces", Georgia, serif;
       --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 
       --container: 1120px;
-      --radius: 12px;
-      --radius-sm: 8px;
+      --radius: 14px;
+      --radius-sm: 9px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,8 +51,8 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--paper);
+      color: var(--ink);
       font-family: var(--font-body);
       font-size: 17px;
       line-height: 1.65;
@@ -55,18 +60,7 @@
       overflow-x: hidden;
     }
 
-    /* Paper grain — one quiet layer of texture over the whole page */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      pointer-events: none;
-      opacity: 0.05;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    ::selection { background: var(--coral); color: var(--ink-on-coral); }
+    ::selection { background: var(--marigold); color: var(--ink); }
 
     a { color: inherit; }
 
@@ -74,7 +68,7 @@
     button:focus-visible,
     input:focus-visible,
     textarea:focus-visible {
-      outline: 2px solid var(--coral);
+      outline: 2px solid var(--coral-deep);
       outline-offset: 3px;
     }
 
@@ -82,6 +76,17 @@
       max-width: var(--container);
       margin: 0 auto;
       padding: 0 24px;
+    }
+
+    /* Photography — every photo prints in black & white with a white border */
+    .photo {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+      border-radius: var(--radius);
+      border: 5px solid #FFFFFF;
+      box-shadow: 0 10px 30px rgba(38, 34, 29, 0.10);
+      filter: grayscale(1);
     }
 
     /* ============================================================
@@ -93,7 +98,7 @@
       z-index: 100;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      background: rgba(25, 21, 17, 0.72);
+      background: rgba(255, 252, 247, 0.82);
       border-bottom: 1px solid var(--line);
     }
     .nav-inner {
@@ -105,13 +110,13 @@
     .wordmark {
       font-family: var(--font-display);
       font-weight: 500;
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       letter-spacing: 0.01em;
       text-decoration: none;
     }
     .wordmark em {
       font-style: italic;
-      color: var(--coral);
+      color: var(--coral-deep);
     }
     .nav-links {
       display: flex;
@@ -122,86 +127,105 @@
     }
     .nav-links a {
       text-decoration: none;
-      color: var(--text-dim);
+      color: var(--ink-dim);
       transition: color 0.2s ease;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--ink); }
     .nav-cta {
-      color: var(--text) !important;
-      border: 1px solid var(--line);
-      padding: 8px 18px;
+      color: var(--paper) !important;
+      background: var(--ink);
+      padding: 9px 18px;
       border-radius: var(--radius-sm);
-      transition: border-color 0.2s ease, background 0.2s ease;
+      transition: background 0.2s ease;
     }
-    .nav-cta:hover {
-      border-color: var(--coral);
-      background: rgba(229, 105, 78, 0.08);
-    }
+    .nav-cta:hover { background: var(--coral-deep); }
 
     /* ============================================================
-       Hero — typographic; the headline is the art
+       Hero — light, typographic, with the story arc as signature
        ============================================================ */
     .hero {
       position: relative;
-      min-height: clamp(560px, 90svh, 920px);
+      min-height: clamp(560px, 88svh, 880px);
       display: flex;
       align-items: center;
       padding: 150px 0 110px;
-      border-bottom: 1px solid var(--line);
+      overflow: hidden;
       background:
-        radial-gradient(900px 480px at 82% -10%, rgba(229, 105, 78, 0.10), transparent 70%),
-        var(--bg);
+        radial-gradient(720px 420px at 8% -10%, rgba(20, 118, 107, 0.06), transparent 70%),
+        radial-gradient(820px 480px at 96% 108%, rgba(228, 87, 61, 0.07), transparent 70%),
+        var(--paper);
     }
 
+    /* The story arc: three lines rising toward the next chapter */
+    .hero-arc {
+      position: absolute;
+      right: -60px;
+      bottom: -30px;
+      width: min(46vw, 640px);
+      height: auto;
+      pointer-events: none;
+    }
+    .hero-arc path {
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 900;
+      stroke-dashoffset: 900;
+      animation: draw 1.6s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+    }
+    .hero-arc .arc-coral    { stroke: var(--coral);    animation-delay: 0.25s; }
+    .hero-arc .arc-teal     { stroke: var(--teal);     animation-delay: 0.45s; }
+    .hero-arc .arc-marigold { stroke: var(--marigold); animation-delay: 0.65s; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+    }
     .hero-content {
       position: relative;
-      max-width: 780px;
     }
+    .hero-photo { margin: 0; position: relative; }
+    .hero-photo .photo { aspect-ratio: 4 / 5; object-position: 50% 40%; }
     .eyebrow {
       display: inline-flex;
-      align-items: baseline;
+      align-items: center;
       gap: 12px;
       font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--text-faint);
-      margin-bottom: 30px;
-    }
-    .eyebrow em {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-weight: 500;
-      font-size: 1rem;
-      letter-spacing: 0;
-      text-transform: none;
-      color: var(--coral);
+      color: var(--coral-deep);
+      margin-bottom: 28px;
     }
     .eyebrow::before {
       content: "";
-      align-self: center;
-      width: 26px; height: 1px;
-      background: var(--line);
+      width: 26px; height: 2px;
+      border-radius: 2px;
+      background: var(--coral);
     }
     .hero h1 {
       font-family: var(--font-display);
-      font-weight: 380;
-      font-size: clamp(2.8rem, 6.6vw, 5rem);
-      line-height: 1.04;
+      font-weight: 400;
+      font-size: clamp(2.6rem, 4.8vw, 4.1rem);
+      line-height: 1.05;
       letter-spacing: -0.02em;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
       text-wrap: balance;
     }
     .hero h1 em {
       font-style: italic;
-      font-weight: 480;
-      color: var(--coral);
+      font-weight: 500;
+      color: var(--coral-deep);
     }
     .hero p {
       font-size: 1.15rem;
-      color: var(--text-dim);
+      color: var(--ink-dim);
       max-width: 540px;
-      margin-bottom: 42px;
+      margin-bottom: 40px;
     }
     .hero-actions {
       display: flex;
@@ -213,12 +237,12 @@
     /* Page-load sequence: eyebrow, headline, copy, actions rise in turn */
     .rise {
       opacity: 0;
-      transform: translateY(18px);
+      transform: translateY(16px);
       animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
-    .rise-2 { animation-delay: 0.12s; }
-    .rise-3 { animation-delay: 0.24s; }
-    .rise-4 { animation-delay: 0.36s; }
+    .rise-2 { animation-delay: 0.1s; }
+    .rise-3 { animation-delay: 0.2s; }
+    .rise-4 { animation-delay: 0.3s; }
     @keyframes rise {
       to { opacity: 1; transform: none; }
     }
@@ -226,7 +250,7 @@
     .btn-primary {
       display: inline-block;
       background: var(--coral);
-      color: var(--ink-on-coral);
+      color: #FFF6F1;
       font-weight: 600;
       font-size: 0.95rem;
       padding: 15px 30px;
@@ -240,19 +264,32 @@
     .btn-ghost {
       font-size: 0.95rem;
       font-weight: 500;
-      color: var(--text-dim);
+      color: var(--ink-dim);
       text-decoration: none;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 2px solid var(--marigold);
       padding-bottom: 3px;
       transition: color 0.2s ease, border-color 0.2s ease;
     }
-    .btn-ghost:hover { color: var(--text); border-color: var(--coral); }
+    .btn-ghost:hover { color: var(--ink); border-color: var(--coral); }
 
     /* ============================================================
-       Shared section scaffolding — each section opens like a chapter
+       Shared section scaffolding
        ============================================================ */
     section { padding: 110px 0; }
+    .band { background: var(--paper-soft); }
     .section-head { max-width: 640px; margin-bottom: 64px; }
+
+    /* Section header with a photo alongside */
+    .head-row {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 64px;
+      align-items: center;
+      margin-bottom: 64px;
+    }
+    .head-row .section-head { margin-bottom: 0; }
+    .head-row figure { margin: 0; }
+    .head-row .photo { aspect-ratio: 4 / 3; }
     .section-head h2 {
       font-family: var(--font-display);
       font-weight: 400;
@@ -262,7 +299,7 @@
       margin: 16px 0 18px;
       text-wrap: balance;
     }
-    .section-head p { color: var(--text-dim); font-size: 1.05rem; }
+    .section-head p { color: var(--ink-dim); font-size: 1.05rem; }
 
     /* Scroll-reveal */
     .reveal {
@@ -276,22 +313,20 @@
     }
 
     /* ============================================================
-       Services
+       Services — three tinted cards, one per color
        ============================================================ */
-    .services { border-top: 0; }
     .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 22px;
     }
     .card {
-      background: var(--bg-raised);
-      border: 1px solid var(--line);
+      background: var(--tint, var(--paper-soft));
       border-radius: var(--radius);
-      padding: 36px 30px;
-      transition: border-color 0.25s ease;
+      padding: 38px 32px;
+      transition: transform 0.25s ease;
     }
-    .card:hover { border-color: rgba(242, 236, 226, 0.26); }
+    .card:hover { transform: translateY(-3px); }
     .card h3 {
       font-family: var(--font-display);
       font-weight: 500;
@@ -299,38 +334,43 @@
       line-height: 1.25;
       margin-bottom: 14px;
     }
-    .card p { color: var(--text-dim); font-size: 0.98rem; margin-bottom: 18px; }
+    .card p { color: var(--ink-dim); font-size: 0.98rem; margin-bottom: 18px; }
     .card ul {
       list-style: none;
-      font-size: 0.9rem;
-      color: var(--text-faint);
+      font-size: 0.92rem;
+      color: var(--ink-dim);
     }
     .card li {
       padding: 8px 0;
-      border-top: 1px solid var(--line);
+      border-top: 1px solid rgba(38, 34, 29, 0.10);
     }
+    .card-blush { --tint: var(--blush); }
+    .card-mint  { --tint: var(--mint); }
+    .card-gold  { --tint: var(--gold); }
 
     /* ============================================================
-       Philosophy — Listen / Connect / Suggest is a real sequence,
-       so the numerals carry meaning here
+       Philosophy — Listen / Connect / Suggest is a real sequence:
+       each step gets a colored rule in order
        ============================================================ */
-    .philosophy { border-top: 1px solid var(--line); }
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 48px;
     }
     .step {
-      border-top: 1px solid var(--line);
+      border-top: 3px solid var(--step-color, var(--line));
       padding-top: 22px;
     }
+    .step-1 { --step-color: var(--coral); }
+    .step-2 { --step-color: var(--teal); }
+    .step-3 { --step-color: var(--marigold); }
     .step .numeral {
       font-family: var(--font-display);
       font-style: italic;
-      font-size: 0.95rem;
-      color: var(--text-faint);
+      font-size: 1rem;
+      color: var(--ink-faint);
       display: block;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .step h3 {
       font-family: var(--font-display);
@@ -338,19 +378,18 @@
       font-size: 1.6rem;
       margin-bottom: 12px;
     }
-    .step p { color: var(--text-dim); font-size: 0.98rem; }
+    .step p { color: var(--ink-dim); font-size: 0.98rem; }
     .philosophy-credit {
       margin-top: 56px;
       font-size: 0.9rem;
-      color: var(--text-faint);
+      color: var(--ink-faint);
       font-style: italic;
     }
-    .philosophy-credit a { color: var(--text-dim); }
+    .philosophy-credit a { color: var(--ink-dim); }
 
     /* ============================================================
        About
        ============================================================ */
-    .about { border-top: 1px solid var(--line); }
     .about-grid {
       display: grid;
       grid-template-columns: 0.85fr 1.15fr;
@@ -358,27 +397,19 @@
       align-items: start;
     }
     .profile-card {
-      background: var(--bg-raised);
+      background: #FFFFFF;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 40px 34px;
       text-align: center;
       position: sticky;
       top: 100px;
+      box-shadow: 0 2px 18px rgba(38, 34, 29, 0.05);
     }
-    .monogram {
-      width: 108px; height: 108px;
-      margin: 0 auto 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 2.6rem;
-      color: var(--text);
-      background: var(--bg);
-      border: 1px solid var(--line);
+    .profile-photo {
+      aspect-ratio: 4 / 5;
+      object-position: 45% 22%;
+      margin-bottom: 24px;
     }
     .profile-card h3 {
       font-family: var(--font-display);
@@ -388,7 +419,7 @@
     }
     .profile-card .role {
       font-size: 0.88rem;
-      color: var(--text-dim);
+      color: var(--ink-dim);
       margin-bottom: 28px;
     }
     .profile-stats {
@@ -403,38 +434,29 @@
       font-weight: 500;
       font-size: 1.7rem;
       display: block;
-      color: var(--text);
+      color: var(--teal);
     }
     .stat .stat-label {
       font-size: 0.78rem;
-      color: var(--text-faint);
+      color: var(--ink-faint);
       line-height: 1.4;
       display: block;
       margin-top: 4px;
     }
     .about-body p {
-      color: var(--text-dim);
+      color: var(--ink-dim);
       margin-bottom: 20px;
       font-size: 1.02rem;
     }
-    .about-body > p:first-of-type::first-letter {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 3.3em;
-      float: left;
-      line-height: 0.82;
-      padding: 4px 10px 0 0;
-      color: var(--text);
-    }
-    .about-body p strong { color: var(--text); font-weight: 600; }
+    .about-body p strong { color: var(--ink); font-weight: 600; }
     .pull-quote {
       font-family: var(--font-display);
       font-style: italic;
       font-weight: 400;
       font-size: 1.45rem;
       line-height: 1.45;
-      color: var(--text);
-      border-left: 2px solid var(--coral);
+      color: var(--ink);
+      border-left: 3px solid var(--coral);
       padding: 6px 0 6px 26px;
       margin: 34px 0;
     }
@@ -442,7 +464,6 @@
     /* ============================================================
        Contact
        ============================================================ */
-    .contact { border-top: 1px solid var(--line); }
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1.1fr;
@@ -458,18 +479,21 @@
     }
     .contact-blurb h2 em {
       font-style: italic;
-      font-weight: 480;
-      color: var(--coral);
+      font-weight: 500;
+      color: var(--coral-deep);
     }
-    .contact-blurb p { color: var(--text-dim); margin-bottom: 26px; }
-    .contact-alt { font-size: 0.9rem; color: var(--text-faint); }
-    .contact-alt a { color: var(--text-dim); }
+    .contact-blurb p { color: var(--ink-dim); margin-bottom: 26px; }
+    .contact-alt { font-size: 0.9rem; color: var(--ink-faint); }
+    .contact-alt a { color: var(--ink-dim); }
+    .contact-photo { margin: 32px 0 0; }
+    .contact-photo .photo { aspect-ratio: 4 / 3; object-position: 50% 28%; }
 
     .form-card {
-      background: var(--bg-raised);
+      background: #FFFFFF;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 38px 34px;
+      box-shadow: 0 2px 18px rgba(38, 34, 29, 0.05);
     }
     .field { margin-bottom: 20px; }
     .field label {
@@ -477,17 +501,17 @@
       font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: var(--text-dim);
+      color: var(--ink-dim);
       margin-bottom: 8px;
     }
     .field input,
     .field textarea {
       width: 100%;
-      background: var(--bg);
+      background: var(--paper);
       border: 1px solid var(--line);
       border-radius: var(--radius-sm);
       padding: 13px 16px;
-      color: var(--text);
+      color: var(--ink);
       font-family: var(--font-body);
       font-size: 0.95rem;
       transition: border-color 0.2s ease;
@@ -499,21 +523,22 @@
       border-color: var(--coral);
     }
     .field input::placeholder,
-    .field textarea::placeholder { color: var(--text-faint); }
+    .field textarea::placeholder { color: var(--ink-faint); }
     .form-card .btn-primary { width: 100%; margin-top: 6px; }
     .form-note {
       margin-top: 16px;
       font-size: 0.9rem;
       min-height: 1.4em;
     }
-    .form-note.ok { color: var(--text); }
-    .form-note.err { color: var(--coral); }
+    .form-note.ok { color: var(--teal); }
+    .form-note.err { color: var(--coral-deep); }
 
     /* ============================================================
-       Footer — set like a colophon
+       Footer — dark ink to close the page
        ============================================================ */
     footer {
-      border-top: 1px solid var(--line);
+      background: var(--ink);
+      color: rgba(255, 252, 247, 0.6);
       padding: 44px 0;
     }
     .footer-inner {
@@ -523,11 +548,11 @@
       gap: 16px;
       flex-wrap: wrap;
       font-size: 0.88rem;
-      color: var(--text-faint);
     }
-    .colophon { font-family: var(--font-display); font-style: italic; }
-    .footer-inner a { color: var(--text-dim); text-decoration: none; }
-    .footer-inner a:hover { color: var(--text); }
+    footer .wordmark { color: var(--paper); }
+    footer .wordmark em { color: var(--coral); }
+    .footer-inner a { color: rgba(255, 252, 247, 0.75); text-decoration: none; }
+    .footer-inner a:hover { color: var(--paper); }
 
     /* ============================================================
        Responsive
@@ -535,6 +560,12 @@
     @media (max-width: 900px) {
       section { padding: 80px 0; }
       .hero { padding: 130px 0 80px; }
+      .hero-arc { width: 74vw; right: -18vw; bottom: -16px; opacity: 0.45; }
+      .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+      .hero-photo { max-width: 420px; }
+      .hero-photo .photo { aspect-ratio: 5 / 4; }
+      .head-row { grid-template-columns: 1fr; gap: 40px; }
+      .head-row .photo { aspect-ratio: 16 / 10; }
       .cards { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; gap: 36px; }
       .contact-grid { grid-template-columns: 1fr; gap: 44px; }
@@ -549,6 +580,7 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .rise { animation: none; opacity: 1; transform: none; }
+      .hero-arc path { animation: none; stroke-dashoffset: 0; }
       .reveal { opacity: 1; transform: none; transition: none; }
       .btn-primary, .card { transition: none; }
     }
@@ -570,32 +602,47 @@
 
   <!-- ============================ HERO ============================ -->
   <header class="hero" id="top">
-    <div class="container hero-content">
-      <span class="eyebrow rise">Nonprofit fundraising consulting</span>
-      <h1 class="rise rise-2">Every nonprofit deserves a <em>second&nbsp;story</em>.</h1>
-      <p class="rise rise-3">
-        Second Story Consulting helps mission-driven organizations rebuild their
-        fundraising, strengthen the operations behind it, and grow relationships
-        that last — so the next chapter is the best one yet.
-      </p>
-      <div class="hero-actions rise rise-4">
-        <a class="btn-primary" href="#contact">Start the conversation</a>
-        <a class="btn-ghost" href="#services">Explore services ↓</a>
+    <svg class="hero-arc" viewBox="0 0 600 520" aria-hidden="true">
+      <path class="arc-coral"    d="M0,430 C210,418 380,300 480,60"/>
+      <path class="arc-teal"     d="M0,470 C240,458 420,340 540,110"/>
+      <path class="arc-marigold" d="M0,510 C270,498 460,380 592,170"/>
+    </svg>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow rise">Nonprofit fundraising consulting</span>
+        <h1 class="rise rise-2">Every nonprofit deserves a <em>second&nbsp;story</em>.</h1>
+        <p class="rise rise-3">
+          Second Story Consulting helps mission-driven organizations rebuild their
+          fundraising, strengthen the operations behind it, and grow relationships
+          that last — so the next chapter is the best one yet.
+        </p>
+        <div class="hero-actions rise rise-4">
+          <a class="btn-primary" href="#contact">Start the conversation</a>
+          <a class="btn-ghost" href="#services">Explore services ↓</a>
+        </div>
       </div>
+      <figure class="hero-photo rise rise-3">
+        <img class="photo" src="img/workshop.jpg" alt="George Ricciardella leading a fundraising planning workshop">
+      </figure>
     </div>
   </header>
 
   <!-- ========================== SERVICES ========================== -->
   <section class="services" id="services">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow"><em>Chapter One</em> What we do</span>
-        <h2>Three ways to build your next chapter.</h2>
-        <p>Whether your development program needs a fresh start, stronger systems, or a steady partner — we meet you where you are.</p>
+      <div class="head-row">
+        <div class="section-head reveal">
+          <span class="eyebrow">What we do</span>
+          <h2>Three ways to build your next chapter.</h2>
+          <p>Whether your development program needs a fresh start, stronger systems, or a steady partner — we meet you where you are.</p>
+        </div>
+        <figure class="reveal">
+          <img class="photo" src="img/field-notes.jpg" alt="A field notebook and pen on a desk — where every fundraising plan starts">
+        </figure>
       </div>
       <div class="cards">
         <!-- Alternate names: "Fundraising Program Rebuild", "Development Reset" -->
-        <article class="card reveal">
+        <article class="card card-blush reveal">
           <h3>Development Program Rebuild</h3>
           <p>A ground-up audit and redesign of your fundraising program — strategy, portfolio, calendar, and case for support.</p>
           <ul>
@@ -604,7 +651,7 @@
             <li>Annual fundraising plan</li>
           </ul>
         </article>
-        <article class="card reveal">
+        <article class="card card-mint reveal">
           <h3>Development Operations</h3>
           <p>The systems that make fundraising run: CRM setup, clean data, gift processing, and reporting your team can trust.</p>
           <ul>
@@ -614,7 +661,7 @@
           </ul>
         </article>
         <!-- Alternate names: "Ongoing Partnership", "Monthly Advisory" -->
-        <article class="card reveal">
+        <article class="card card-gold reveal">
           <h3>Fractional Development Partner</h3>
           <p>Senior fundraising leadership on a monthly retainer — strategy, coaching, and hands-on help without a full-time hire.</p>
           <ul>
@@ -628,29 +675,34 @@
   </section>
 
   <!-- ========================= PHILOSOPHY ========================= -->
-  <section class="philosophy" id="philosophy">
+  <section class="philosophy band" id="philosophy">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow"><em>Chapter Two</em> How we think</span>
-        <h2>Donors are people, not line items.</h2>
-        <p>
-          Generosity grows when people feel seen. We practice responsive fundraising —
-          personal, timely, and built around each donor's connection to your mission,
-          not a mass-mail calendar.
-        </p>
+      <div class="head-row">
+        <div class="section-head reveal">
+          <span class="eyebrow">How we think</span>
+          <h2>Donors are people, not line items.</h2>
+          <p>
+            Generosity grows when people feel seen. We practice responsive fundraising —
+            personal, timely, and built around each donor's connection to your mission,
+            not a mass-mail calendar.
+          </p>
+        </div>
+        <figure class="reveal">
+          <img class="photo" src="img/event-conversation.jpg" alt="George Ricciardella in conversation at a fundraising event">
+        </figure>
       </div>
       <div class="steps">
-        <div class="step reveal">
+        <div class="step step-1 reveal">
           <span class="numeral">i.</span>
           <h3>Listen</h3>
           <p>Pay attention to the signals donors are already sending — what they give to, respond to, and care about.</p>
         </div>
-        <div class="step reveal">
+        <div class="step step-2 reveal">
           <span class="numeral">ii.</span>
           <h3>Connect</h3>
           <p>Reach out personally and in the right moment, with a message that matches where each donor actually is.</p>
         </div>
-        <div class="step reveal">
+        <div class="step step-3 reveal">
           <span class="numeral">iii.</span>
           <h3>Suggest</h3>
           <p>Invite the next step that fits — the right ask, at the right time, in service of the donor's own generosity.</p>
@@ -666,15 +718,12 @@
   <section class="about" id="about">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow"><em>Chapter Three</em> Who you'll work with</span>
+        <span class="eyebrow">Who you'll work with</span>
         <h2>Grounded, collaborative, and allergic to jargon.</h2>
       </div>
       <div class="about-grid">
-        <!-- To use a headshot instead of the monogram: replace the
-             .monogram div with <img src="george.jpg" alt="George Ricciardella"
-             style="width:108px;height:108px;border-radius:50%;object-fit:cover;margin:0 auto 22px;display:block;"> -->
         <aside class="profile-card reveal">
-          <div class="monogram" aria-hidden="true">G</div>
+          <img class="photo profile-photo" src="img/george-whiteboard.jpg" alt="George Ricciardella at a whiteboard planning session titled 'Making an Impact'">
           <h3>George Ricciardella</h3>
           <p class="role">Founder, Second Story Consulting<br>Director of Development, Impact</p>
           <div class="profile-stats">
@@ -722,10 +771,10 @@
   </section>
 
   <!-- ========================== CONTACT =========================== -->
-  <section class="contact" id="contact">
+  <section class="contact band" id="contact">
     <div class="container contact-grid">
       <div class="contact-blurb reveal">
-        <span class="eyebrow"><em>Chapter Four</em> Get in touch</span>
+        <span class="eyebrow">Get in touch</span>
         <h2>Start your <em>second story</em>.</h2>
         <p>
           Tell us a little about your organization and where fundraising feels stuck.
@@ -736,6 +785,9 @@
           Prefer email? Reach us directly at
           <a href="mailto:rick.e.ardella@gmail.com">rick.e.ardella@gmail.com</a>.
         </p>
+        <figure class="contact-photo">
+          <img class="photo" src="img/george-listening.jpg" alt="George Ricciardella listening during a conversation at an event">
+        </figure>
       </div>
 
       <!--
@@ -768,7 +820,7 @@
   <footer>
     <div class="container footer-inner">
       <a class="wordmark" href="#top">Second <em>Story</em></a>
-      <span class="colophon">Set in Fraunces &amp; Inter · © 2026 Second Story Consulting</span>
+      <span>© 2026 Second Story Consulting</span>
       <a href="mailto:rick.e.ardella@gmail.com">rick.e.ardella@gmail.com</a>
     </div>
   </footer>
