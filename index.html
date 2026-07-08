@@ -60,6 +60,30 @@
       overflow-x: hidden;
     }
 
+    /* Paper grain — one quiet layer of texture over the whole page */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Warm glow that trails the cursor (created by JS on fine pointers only) */
+    .cursor-glow {
+      position: fixed;
+      top: -280px; left: -280px;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(228, 87, 61, 0.14), rgba(222, 154, 46, 0.07) 45%, transparent 70%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 60;
+      will-change: transform;
+    }
+
     ::selection { background: var(--marigold); color: var(--ink); }
 
     a { color: inherit; }
@@ -317,16 +341,34 @@
        ============================================================ */
     .cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      grid-template-columns: 1.18fr 1fr 0.92fr;
+      gap: 26px;
+      align-items: start;
+      perspective: 1100px;
     }
     .card {
       background: var(--tint, var(--paper-soft));
       border-radius: var(--radius);
       padding: 38px 32px;
-      transition: transform 0.25s ease;
+      box-shadow:
+        0 1px 2px rgba(38, 34, 29, 0.05),
+        0 14px 34px rgba(38, 34, 29, 0.10);
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+      will-change: transform;
     }
-    .card:hover { transform: translateY(-3px); }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 2px 4px rgba(38, 34, 29, 0.06),
+        0 24px 50px rgba(38, 34, 29, 0.16);
+    }
+    /* Vary the deck: a featured lead card, then progressively smaller,
+       each starting a step lower than the last */
+    .cards .card:nth-child(1) { padding: 48px 38px; }
+    .cards .card:nth-child(1) h3 { font-size: 1.62rem; }
+    .cards .card:nth-child(2) { margin-top: 36px; }
+    .cards .card:nth-child(3) { margin-top: 68px; padding: 32px 28px; }
+    .cards .card:nth-child(3) h3 { font-size: 1.32rem; }
     .card h3 {
       font-family: var(--font-display);
       font-weight: 500;
@@ -404,7 +446,9 @@
       text-align: center;
       position: sticky;
       top: 100px;
-      box-shadow: 0 2px 18px rgba(38, 34, 29, 0.05);
+      box-shadow:
+        0 1px 2px rgba(38, 34, 29, 0.05),
+        0 16px 40px rgba(38, 34, 29, 0.10);
     }
     .profile-photo {
       aspect-ratio: 4 / 5;
@@ -493,7 +537,9 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 38px 34px;
-      box-shadow: 0 2px 18px rgba(38, 34, 29, 0.05);
+      box-shadow:
+        0 1px 2px rgba(38, 34, 29, 0.05),
+        0 16px 40px rgba(38, 34, 29, 0.10);
     }
     .field { margin-bottom: 20px; }
     .field label {
@@ -566,7 +612,11 @@
       .hero-photo .photo { aspect-ratio: 5 / 4; }
       .head-row { grid-template-columns: 1fr; gap: 40px; }
       .head-row .photo { aspect-ratio: 16 / 10; }
-      .cards { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; gap: 22px; }
+      .cards .card:nth-child(2),
+      .cards .card:nth-child(3) { margin-top: 0; }
+      .cards .card:nth-child(1),
+      .cards .card:nth-child(3) { padding: 38px 32px; }
       .steps { grid-template-columns: 1fr; gap: 36px; }
       .contact-grid { grid-template-columns: 1fr; gap: 44px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -583,6 +633,7 @@
       .hero-arc path { animation: none; stroke-dashoffset: 0; }
       .reveal { opacity: 1; transform: none; transition: none; }
       .btn-primary, .card { transition: none; }
+      .cursor-glow { display: none; }
     }
   </style>
 </head>
@@ -790,17 +841,15 @@
         </figure>
       </div>
 
-      <!--
-        FORM SETUP (one-time, ~5 minutes):
-        1. Create a free account at https://formspree.io with rick.e.ardella@gmail.com
-        2. Create a new form and copy its ID (looks like "xqkrzyab")
-        3. Replace YOUR_FORM_ID in the action URL below.
-        Submissions will then arrive in your email inbox.
-      -->
-      <form class="form-card reveal" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <form class="form-card reveal" id="contact-form" novalidate>
         <div class="field">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <!-- Honeypot: hidden from people, bots fill it in and get silently rejected -->
+        <div class="field" style="position: absolute; left: -9999px;" aria-hidden="true">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
         </div>
         <div class="field">
           <label for="email">Email</label>
@@ -834,6 +883,9 @@
           if (entry.isIntersecting) {
             entry.target.classList.add("in");
             observer.unobserve(entry.target);
+            // Drop the reveal transition once it finishes so it can't
+            // fight the fast card-tilt transform that follows the mouse
+            setTimeout(() => entry.target.classList.remove("reveal", "in"), 700);
           }
         }
       }, { threshold: 0.15 });
@@ -842,7 +894,57 @@
       document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
     }
 
-    // Contact form: validate, submit to Formspree via fetch, show inline status
+    // Mouse-follow motion: cursor glow, hero parallax, and card tilt.
+    // Fine pointers only, and never when the user prefers reduced motion.
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!prefersReducedMotion && finePointer) {
+      const glow = document.createElement("div");
+      glow.className = "cursor-glow";
+      glow.setAttribute("aria-hidden", "true");
+      document.body.appendChild(glow);
+
+      const arc = document.querySelector(".hero-arc");
+      const heroImg = document.querySelector(".hero-photo .photo");
+      let mx = window.innerWidth / 2, my = window.innerHeight / 3;
+      let gx = mx, gy = my;
+
+      // The loop only runs while the glow is still catching up to the
+      // cursor, then stops — no idle CPU burn.
+      let raf = null;
+      const follow = () => {
+        gx += (mx - gx) * 0.08;
+        gy += (my - gy) * 0.08;
+        glow.style.transform = `translate(${gx}px, ${gy}px)`;
+        const nx = (mx / window.innerWidth - 0.5) * 2;
+        const ny = (my / window.innerHeight - 0.5) * 2;
+        if (arc) arc.style.transform = `translate(${nx * 16}px, ${ny * 10}px)`;
+        if (heroImg) heroImg.style.transform = `translate(${nx * -7}px, ${ny * -5}px)`;
+        raf = (Math.abs(mx - gx) > 0.5 || Math.abs(my - gy) > 0.5)
+          ? requestAnimationFrame(follow)
+          : null;
+      };
+      window.addEventListener("pointermove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        if (raf === null) raf = requestAnimationFrame(follow);
+      }, { passive: true });
+
+      // Service cards tilt gently toward the cursor
+      document.querySelectorAll(".card").forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = `translateY(-4px) rotateX(${py * -4}deg) rotateY(${px * 4}deg)`;
+        }, { passive: true });
+        card.addEventListener("pointerleave", () => {
+          card.style.transform = "";
+        });
+      });
+    }
+
+    // Contact form: validate, submit to the Supabase edge function, show inline status
+    const SUBMIT_LEAD_URL = "https://ftaqjencknwpdjogkabd.supabase.co/functions/v1/submit-lead";
     const form = document.getElementById("contact-form");
     const note = document.getElementById("form-note");
 
@@ -858,32 +960,31 @@
         return;
       }
 
-      if (form.action.includes("YOUR_FORM_ID")) {
-        note.className = "form-note err";
-        note.textContent = "Form isn't connected yet — add your Formspree form ID (see the comment in the HTML), or email us directly below.";
-        return;
-      }
-
       const button = form.querySelector("button");
       button.disabled = true;
       button.textContent = "Sending…";
 
       try {
-        const response = await fetch(form.action, {
+        const response = await fetch(SUBMIT_LEAD_URL, {
           method: "POST",
-          body: new FormData(form),
-          headers: { "Accept": "application/json" }
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: form.name.value.trim(),
+            email: form.email.value.trim(),
+            message: form.message.value.trim(),
+            company: form.company.value
+          })
         });
         if (response.ok) {
           form.reset();
           note.className = "form-note ok";
-          note.textContent = "Thanks — your message is on its way. We'll be in touch soon.";
+          note.textContent = "Thanks — check your inbox for a confirmation. We'll be in touch within two business days.";
         } else {
           throw new Error("Bad response");
         }
       } catch {
         note.className = "form-note err";
-        note.textContent = "Something went wrong sending your message. Please try again, or email us directly.";
+        note.textContent = "Something went wrong sending your message. Please try again, or email us directly at rick.e.ardella@gmail.com.";
       } finally {
         button.disabled = false;
         button.textContent = "Send message";
