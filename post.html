@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Notes — Second Story Consulting</title>
+  <meta name="description" content="A field note on nonprofit fundraising from Second Story Consulting.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E4573D'/%3E%3Cpath d='M20 40c0 4.4 4.5 7 11 7 7.2 0 12-3.2 12-8.6 0-4.8-3.4-7-9.8-8.6l-3.5-.9c-4-1-5.7-2.2-5.7-4.5 0-2.7 2.7-4.4 6.8-4.4 4.3 0 6.9 1.8 7.3 4.8h5.5c-.3-5.7-5.2-9.4-12.7-9.4-7.1 0-12.2 3.6-12.2 9.2 0 4.6 3.2 6.9 9.2 8.4l3.6.9c4.4 1.1 6.2 2.3 6.2 4.8 0 2.9-3 4.7-7.5 4.7-4.7 0-7.7-1.9-8.2-5h-5.5z' fill='%23FFFCF7'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Design tokens — kept in sync with index.html */
+    :root {
+      --paper: #FFFCF7;
+      --paper-soft: #F8F2E7;
+      --ink: #26221D;
+      --ink-dim: rgba(38, 34, 29, 0.70);
+      --ink-faint: rgba(38, 34, 29, 0.48);
+      --line: rgba(38, 34, 29, 0.14);
+      --coral: #E4573D;
+      --coral-deep: #C7442B;
+      --teal: #14766B;
+      --marigold: #DE9A2E;
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      --container: 1120px;
+      --radius: 14px;
+      --radius-sm: 9px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection { background: var(--marigold); color: var(--ink); }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--coral-deep); outline-offset: 3px; }
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 252, 247, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .wordmark { font-family: var(--font-display); font-weight: 500; font-size: 1.18rem; letter-spacing: 0.01em; text-decoration: none; }
+    .wordmark em { font-style: italic; color: var(--coral-deep); }
+    .nav-links { display: flex; align-items: center; gap: 30px; font-size: 0.9rem; font-weight: 500; }
+    .nav-links a { text-decoration: none; color: var(--ink-dim); transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { color: var(--paper) !important; background: var(--ink); padding: 9px 18px; border-radius: var(--radius-sm); transition: background 0.2s ease; }
+    .nav-cta:hover { background: var(--coral-deep); }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--coral-deep); margin-bottom: 24px;
+      text-decoration: none;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: var(--coral); }
+
+    article { padding: 160px 0 110px; }
+    .article-inner { max-width: 68ch; margin: 0 auto; }
+    .post-date { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+    .article-inner > h1 {
+      font-family: var(--font-display); font-weight: 400;
+      font-size: clamp(2.1rem, 4vw, 3.1rem); line-height: 1.12;
+      letter-spacing: -0.02em; margin: 14px 0 34px; text-wrap: balance;
+    }
+    .post-body h1, .post-body h2, .post-body h3 {
+      font-family: var(--font-display); font-weight: 500;
+      line-height: 1.2; letter-spacing: -0.01em;
+      margin: 44px 0 16px;
+    }
+    .post-body h1 { font-size: 1.8rem; }
+    .post-body h2 { font-size: 1.55rem; }
+    .post-body h3 { font-size: 1.28rem; }
+    .post-body p { margin-bottom: 20px; color: var(--ink); }
+    .post-body a { color: var(--coral-deep); }
+    .post-body ul, .post-body ol { margin: 0 0 20px 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .post-body blockquote {
+      background: var(--paper-soft);
+      border-left: 3px solid var(--coral);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--ink-dim);
+    }
+    .post-body blockquote p:last-child { margin-bottom: 0; }
+    .post-body strong { font-weight: 600; }
+    .post-body hr { border: none; border-top: 1px solid var(--line); margin: 36px 0; }
+    .back-link {
+      display: inline-block; margin-top: 48px;
+      font-size: 0.95rem; font-weight: 500; color: var(--ink-dim);
+      text-decoration: none; border-bottom: 2px solid var(--marigold);
+      padding-bottom: 3px; transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .back-link:hover { color: var(--ink); border-color: var(--coral); }
+    .state-note { color: var(--ink-dim); font-size: 1.05rem; }
+
+    footer { background: var(--ink); color: rgba(255, 252, 247, 0.6); padding: 44px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.88rem; }
+    footer .wordmark { color: var(--paper); }
+    footer .wordmark em { color: var(--coral); }
+    .footer-inner a { color: rgba(255, 252, 247, 0.75); text-decoration: none; }
+    .footer-inner a:hover { color: var(--paper); }
+
+    @media (max-width: 900px) {
+      article { padding: 130px 0 80px; }
+      .nav-links { gap: 18px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="wordmark" href="index.html">Second <em>Story</em></a>
+      <div class="nav-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#philosophy">Philosophy</a>
+        <a href="index.html#about">About</a>
+        <a href="blog.html">Field Notes</a>
+        <a class="nav-cta" href="index.html#contact">Let's talk</a>
+      </div>
+    </div>
+  </nav>
+
+  <article>
+    <div class="container">
+      <div class="article-inner" id="article">
+        <a class="eyebrow" href="blog.html">Field Notes</a>
+        <p class="state-note" id="state">Loading…</p>
+      </div>
+    </div>
+  </article>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="wordmark" href="index.html">Second <em>Story</em></a>
+      <span>© 2026 Second Story Consulting</span>
+      <a href="mailto:rick.e.ardella@gmail.com">rick.e.ardella@gmail.com</a>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { marked } from "https://esm.sh/marked@12";
+    import DOMPurify from "https://esm.sh/dompurify@3";
+
+    const SUPABASE_URL = "https://ftaqjencknwpdjogkabd.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_7B7eOMRW3UggVVGixw0RqA_dXQVs587";
+    const article = document.getElementById("article");
+    const state = document.getElementById("state");
+
+    const slug = new URLSearchParams(location.search).get("slug");
+
+    function notFound() {
+      state.innerHTML = 'That note isn’t here — it may have moved. <br><br><a class="back-link" href="blog.html">← Back to all Field Notes</a>';
+    }
+
+    if (!slug) {
+      notFound();
+    } else {
+      // Column-level grants mean anon must name columns explicitly — never select=*
+      fetch(`${SUPABASE_URL}/rest/v1/content_items?select=title,excerpt,blog_markdown,published_at&slug=eq.${encodeURIComponent(slug)}`, {
+        headers: { apikey: SUPABASE_KEY },
+      })
+        .then((r) => r.json())
+        .then((rows) => {
+          if (!Array.isArray(rows) || !rows.length) return notFound();
+          const post = rows[0];
+          document.title = `${post.title} — Second Story Consulting`;
+          document.querySelector('meta[name="description"]')?.setAttribute("content", post.excerpt ?? "");
+
+          const date = new Date(post.published_at).toLocaleDateString("en-US", {
+            year: "numeric", month: "long", day: "numeric",
+          });
+
+          // Strip a leading H1 from the markdown if it duplicates the title
+          let md = post.blog_markdown ?? "";
+          const firstLine = md.trimStart().split("\n")[0];
+          if (firstLine.startsWith("# ")) md = md.trimStart().split("\n").slice(1).join("\n");
+
+          state.remove();
+          const dateEl = document.createElement("p");
+          dateEl.className = "post-date";
+          dateEl.textContent = date;
+          const h1 = document.createElement("h1");
+          h1.textContent = post.title;
+          const body = document.createElement("div");
+          body.className = "post-body";
+          body.innerHTML = DOMPurify.sanitize(marked.parse(md));
+          const back = document.createElement("a");
+          back.className = "back-link";
+          back.href = "blog.html";
+          back.textContent = "← Back to all Field Notes";
+          article.append(dateEl, h1, body, back);
+        })
+        .catch(notFound);
+    }
+  </script>
+</body>
+</html>

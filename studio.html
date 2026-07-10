@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Studio — Second Story Consulting</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2326221D'/%3E%3Cpath d='M20 40c0 4.4 4.5 7 11 7 7.2 0 12-3.2 12-8.6 0-4.8-3.4-7-9.8-8.6l-3.5-.9c-4-1-5.7-2.2-5.7-4.5 0-2.7 2.7-4.4 6.8-4.4 4.3 0 6.9 1.8 7.3 4.8h5.5c-.3-5.7-5.2-9.4-12.7-9.4-7.1 0-12.2 3.6-12.2 9.2 0 4.6 3.2 6.9 9.2 8.4l3.6.9c4.4 1.1 6.2 2.3 6.2 4.8 0 2.9-3 4.7-7.5 4.7-4.7 0-7.7-1.9-8.2-5h-5.5z' fill='%23E4573D'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Design tokens — kept in sync with index.html */
+    :root {
+      --paper: #FFFCF7;
+      --paper-soft: #F8F2E7;
+      --ink: #26221D;
+      --ink-dim: rgba(38, 34, 29, 0.70);
+      --ink-faint: rgba(38, 34, 29, 0.48);
+      --line: rgba(38, 34, 29, 0.14);
+      --coral: #E4573D;
+      --coral-deep: #C7442B;
+      --teal: #14766B;
+      --marigold: #DE9A2E;
+      --blush: #FAE7E0;
+      --mint:  #E3EFE9;
+      --gold:  #F8EDD5;
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      --container: 1120px;
+      --radius: 14px;
+      --radius-sm: 9px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--coral-deep); outline-offset: 3px;
+    }
+    .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+    .hidden { display: none !important; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255, 252, 247, 0.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .wordmark { font-family: var(--font-display); font-weight: 500; font-size: 1.12rem; text-decoration: none; }
+    .wordmark em { font-style: italic; color: var(--coral-deep); }
+    .nav-right { display: flex; align-items: center; gap: 16px; font-size: 0.88rem; }
+    .studio-tag {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--coral-deep); background: var(--blush);
+      padding: 4px 10px; border-radius: 20px;
+    }
+
+    main { padding: 44px 0 90px; }
+
+    h1, h2 { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
+    h1 { font-size: 2rem; margin-bottom: 8px; }
+    .sub { color: var(--ink-dim); margin-bottom: 30px; }
+
+    button {
+      font-family: var(--font-body); font-size: 0.92rem; font-weight: 600;
+      border: none; cursor: pointer; border-radius: var(--radius-sm);
+      padding: 12px 20px; transition: background 0.2s ease, color 0.2s ease;
+    }
+    button:disabled { opacity: 0.5; cursor: default; }
+    .btn-primary { background: var(--coral); color: #FFF6F1; }
+    .btn-primary:hover:not(:disabled) { background: var(--coral-deep); }
+    .btn-dark { background: var(--ink); color: var(--paper); }
+    .btn-dark:hover:not(:disabled) { background: var(--coral-deep); }
+    .btn-quiet { background: transparent; color: var(--ink-dim); border: 1px solid var(--line); }
+    .btn-quiet:hover:not(:disabled) { color: var(--ink); border-color: var(--ink-dim); }
+    .btn-sm { padding: 8px 14px; font-size: 0.85rem; }
+
+    label { display: block; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-dim); margin-bottom: 8px; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="url"], textarea {
+      width: 100%;
+      font-family: var(--font-body); font-size: 0.98rem; color: var(--ink);
+      background: #FFFFFF; border: 1px solid var(--line); border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+    textarea { resize: vertical; line-height: 1.55; }
+    input:focus, textarea:focus { border-color: var(--coral); outline: none; }
+    .field { margin-bottom: 20px; }
+    .note { font-size: 0.88rem; min-height: 1.4em; margin-top: 12px; }
+    .note.ok { color: var(--teal); }
+    .note.err { color: var(--coral-deep); }
+
+    /* Login */
+    .login-card {
+      max-width: 420px; margin: 60px auto 0;
+      background: var(--paper-soft); border-radius: var(--radius);
+      padding: 40px 36px;
+      box-shadow: 0 1px 2px rgba(38,34,29,0.05), 0 14px 34px rgba(38,34,29,0.10);
+    }
+    .login-card h1 { margin-bottom: 4px; }
+    .login-card .sub { margin-bottom: 26px; font-size: 0.95rem; }
+    .login-card .btn-primary { width: 100%; }
+
+    /* List */
+    .list-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
+    .item-list { display: grid; gap: 14px; }
+    .item-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      background: #FFFFFF; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 18px 22px; cursor: pointer;
+      transition: box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    .item-row:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(38,34,29,0.10); }
+    .item-title { font-family: var(--font-display); font-weight: 500; font-size: 1.12rem; }
+    .item-meta { font-size: 0.8rem; color: var(--ink-faint); margin-top: 2px; }
+    .chips { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+    .chip {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; white-space: nowrap;
+    }
+    .chip-draft { background: var(--gold); color: #8a6a1c; }
+    .chip-published { background: var(--mint); color: var(--teal); }
+    .chip-x { background: var(--blush); color: var(--coral-deep); }
+
+    /* New piece */
+    .tabs { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+    .tab {
+      background: transparent; border: 1px solid var(--line); color: var(--ink-dim);
+      padding: 9px 18px; font-weight: 500;
+    }
+    .tab.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .panel { background: var(--paper-soft); border-radius: var(--radius); padding: 30px 28px; }
+    .mic-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+    .mic-dot {
+      width: 12px; height: 12px; border-radius: 50%; background: var(--coral);
+      animation: pulse 1.1s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: 0.35; transform: scale(0.75);} }
+    .mic-hint { font-size: 0.85rem; color: var(--ink-faint); }
+    .spinner-row { display: flex; align-items: center; gap: 14px; margin-top: 18px; }
+    .spinner {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 3px solid var(--line); border-top-color: var(--coral);
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Editor */
+    .editor-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .editor-grid .full { grid-column: 1 / -1; }
+    .channel-card {
+      background: var(--paper-soft); border-radius: var(--radius); padding: 26px 24px;
+      margin-top: 22px;
+    }
+    .channel-card h2 { font-size: 1.3rem; margin-bottom: 4px; }
+    .channel-sub { font-size: 0.85rem; color: var(--ink-faint); margin-bottom: 16px; }
+    .channel-actions { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+    .char-count { font-size: 0.78rem; color: var(--ink-faint); text-align: right; margin-top: 4px; }
+    .char-count.over { color: var(--coral-deep); font-weight: 600; }
+    .preview {
+      background: #FFFFFF; border: 1px dashed var(--line); border-radius: var(--radius-sm);
+      padding: 20px 22px; margin-top: 12px; font-size: 0.95rem; overflow-wrap: break-word;
+    }
+    .preview h1, .preview h2, .preview h3 { font-family: var(--font-display); font-weight: 500; margin: 18px 0 8px; }
+    .preview p { margin-bottom: 12px; }
+    .preview ul, .preview ol { margin: 0 0 12px 20px; }
+    .preview blockquote { border-left: 3px solid var(--coral); padding-left: 14px; color: var(--ink-dim); font-style: italic; margin: 14px 0; }
+    .tweet-block { margin-bottom: 14px; }
+    .tweet-block textarea { min-height: 84px; }
+    .tweet-tools { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+    .link-quiet { font-size: 0.82rem; color: var(--ink-faint); background: none; border: none; padding: 4px; cursor: pointer; }
+    .link-quiet:hover { color: var(--coral-deep); }
+
+    @media (max-width: 760px) {
+      .editor-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="wordmark" href="index.html">Second <em>Story</em> <span class="studio-tag">Studio</span></a>
+      <div class="nav-right">
+        <a href="blog.html" target="_blank" rel="noopener">View blog ↗</a>
+        <button class="btn-quiet btn-sm hidden" id="logout-btn">Sign out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- ===================== LOGIN ===================== -->
+    <section id="view-login" class="hidden">
+      <div class="login-card">
+        <h1>Welcome back.</h1>
+        <p class="sub">Sign in to your content studio.</p>
+        <form id="login-form">
+          <div class="field">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" autocomplete="current-password" required>
+          </div>
+          <button class="btn-primary" type="submit">Sign in</button>
+          <p class="note" id="login-note" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===================== LIST ===================== -->
+    <section id="view-list" class="hidden">
+      <div class="list-head">
+        <div>
+          <h1>Your content.</h1>
+          <p class="sub" style="margin-bottom:0;">Every piece, newest first.</p>
+        </div>
+        <button class="btn-primary" id="new-piece-btn">+ New piece</button>
+      </div>
+      <div class="item-list" id="item-list"></div>
+      <p class="note" id="list-note" role="status"></p>
+    </section>
+
+    <!-- ===================== NEW PIECE ===================== -->
+    <section id="view-new" class="hidden">
+      <button class="btn-quiet btn-sm" id="new-back-btn" style="margin-bottom:22px;">← Back to list</button>
+      <h1>New piece.</h1>
+      <p class="sub">Start with a YouTube video or a brain dump — Claude turns it into a blog post, a LinkedIn post, and an X post in your voice.</p>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="youtube">YouTube video</button>
+        <button class="tab" data-tab="type">Type it</button>
+        <button class="tab" data-tab="speak">Speak it</button>
+      </div>
+
+      <div class="panel">
+        <!-- YouTube -->
+        <div id="tab-youtube">
+          <div class="field">
+            <label for="yt-url">YouTube link</label>
+            <input type="url" id="yt-url" placeholder="https://www.youtube.com/watch?v=…">
+          </div>
+          <button class="btn-dark" id="yt-fetch-btn">Get the transcript</button>
+          <p class="note" id="yt-note" role="status"></p>
+          <div id="yt-paste" class="hidden" style="margin-top:16px;">
+            <div class="field">
+              <label for="yt-transcript">Paste the transcript</label>
+              <textarea id="yt-transcript" rows="8" placeholder="Open the video on YouTube → click “…more” under the title → Show transcript → select it all, copy, and paste it here."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Type -->
+        <div id="tab-type" class="hidden">
+          <div class="field">
+            <label for="dump-text">Brain dump</label>
+            <textarea id="dump-text" rows="10" placeholder="Just get it out of your head — rough notes, half sentences, stories from a client call. Claude will shape it."></textarea>
+          </div>
+        </div>
+
+        <!-- Speak -->
+        <div id="tab-speak" class="hidden">
+          <div class="mic-row">
+            <button class="btn-dark" id="mic-btn">🎙 Start talking</button>
+            <span class="mic-dot hidden" id="mic-dot"></span>
+            <span class="mic-hint" id="mic-hint">Press the button and talk — your words appear below as you speak.</span>
+          </div>
+          <div class="field">
+            <textarea id="speak-text" rows="10" placeholder="Your spoken words will land here. You can tidy them up before generating."></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button class="btn-primary" id="generate-btn">Generate content</button>
+          <div class="spinner-row hidden" id="gen-spinner">
+            <span class="spinner"></span>
+            <span>Claude is writing — this takes a minute or two. Don't close the page.</span>
+          </div>
+          <p class="note" id="gen-note" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EDITOR ===================== -->
+    <section id="view-editor" class="hidden">
+      <div class="editor-head">
+        <button class="btn-quiet btn-sm" id="editor-back-btn">← Back to list</button>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn-quiet btn-sm" id="archive-btn">Archive</button>
+          <button class="btn-dark" id="save-btn">Save changes</button>
+        </div>
+      </div>
+      <p class="note" id="editor-note" role="status"></p>
+
+      <div class="editor-grid">
+        <div class="field full">
+          <label for="ed-title">Title</label>
+          <input type="text" id="ed-title">
+        </div>
+        <div class="field">
+          <label for="ed-slug">Web address ending (slug)</label>
+          <input type="text" id="ed-slug">
+        </div>
+        <div class="field">
+          <label for="ed-excerpt">Excerpt (shown on the blog list)</label>
+          <input type="text" id="ed-excerpt">
+        </div>
+      </div>
+
+      <div class="channel-card">
+        <h2>Blog post</h2>
+        <p class="channel-sub">Published to secondstoryconsulting.com under Field Notes.</p>
+        <div class="field">
+          <textarea id="ed-blog" rows="16"></textarea>
+        </div>
+        <details>
+          <summary style="cursor:pointer; font-size:0.88rem; color:var(--ink-dim);">Preview how it will look</summary>
+          <div class="preview" id="blog-preview"></div>
+        </details>
+        <div class="channel-actions">
+          <button class="btn-primary" id="publish-btn">Publish to blog</button>
+          <a class="hidden" id="view-post-link" target="_blank" rel="noopener" style="font-size:0.9rem; color:var(--coral-deep);">View live post ↗</a>
+        </div>
+      </div>
+
+      <div class="channel-card">
+        <h2>LinkedIn post</h2>
+        <p class="channel-sub">Copy it, then paste into a new LinkedIn post.</p>
+        <div class="field">
+          <textarea id="ed-linkedin" rows="9"></textarea>
+          <div class="char-count" id="li-count"></div>
+        </div>
+        <div class="channel-actions">
+          <button class="btn-dark" id="copy-li-btn">Copy for LinkedIn</button>
+        </div>
+      </div>
+
+      <div class="channel-card">
+        <h2>X (Twitter)</h2>
+        <p class="channel-sub">One box per post. More than one box becomes a thread.</p>
+        <div id="tweet-list"></div>
+        <button class="link-quiet" id="add-tweet-btn">+ Add another post to the thread</button>
+        <div class="channel-actions">
+          <button class="btn-dark" id="post-x-btn">Post to X</button>
+          <a class="hidden" id="view-tweet-link" target="_blank" rel="noopener" style="font-size:0.9rem; color:var(--coral-deep);">View on X ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+    import { marked } from "https://esm.sh/marked@12";
+    import DOMPurify from "https://esm.sh/dompurify@3";
+
+    const SUPABASE_URL = "https://ftaqjencknwpdjogkabd.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_7B7eOMRW3UggVVGixw0RqA_dXQVs587";
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const $ = (id) => document.getElementById(id);
+    const views = ["view-login", "view-list", "view-new", "view-editor"];
+    function show(view) {
+      for (const v of views) $(v).classList.toggle("hidden", v !== view);
+      window.scrollTo(0, 0);
+    }
+    function setNote(id, msg, kind = "") {
+      const el = $(id);
+      el.textContent = msg;
+      el.className = `note ${kind}`;
+    }
+
+    let currentItem = null;
+
+    /* ---------------- Auth ---------------- */
+    async function boot() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        $("logout-btn").classList.remove("hidden");
+        show("view-list");
+        loadList();
+      } else {
+        $("logout-btn").classList.add("hidden");
+        show("view-login");
+      }
+    }
+
+    $("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setNote("login-note", "Signing in…");
+      const { error } = await supabase.auth.signInWithPassword({
+        email: $("login-email").value.trim(),
+        password: $("login-password").value,
+      });
+      if (error) {
+        setNote("login-note", "That didn't work — check your email and password.", "err");
+        return;
+      }
+      boot();
+    });
+
+    $("logout-btn").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      boot();
+    });
+
+    async function authedFetch(fnName, body) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error("not signed in");
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/${fnName}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify(body),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || `Request failed (${res.status})`);
+      return json;
+    }
+
+    /* ---------------- List ---------------- */
+    async function loadList() {
+      setNote("list-note", "");
+      const { data, error } = await supabase
+        .from("content_items")
+        .select("id,title,created_at,status,x_posted_at,slug")
+        .neq("status", "archived")
+        .order("created_at", { ascending: false });
+      const list = $("item-list");
+      list.innerHTML = "";
+      if (error) { setNote("list-note", "Couldn't load your content. Try refreshing.", "err"); return; }
+      if (!data.length) {
+        setNote("list-note", "Nothing here yet — hit “New piece” to create your first one.");
+        return;
+      }
+      for (const item of data) {
+        const row = document.createElement("div");
+        row.className = "item-row";
+        const left = document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "item-title";
+        title.textContent = item.title;
+        const meta = document.createElement("div");
+        meta.className = "item-meta";
+        meta.textContent = new Date(item.created_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+        left.append(title, meta);
+        const chips = document.createElement("div");
+        chips.className = "chips";
+        const statusChip = document.createElement("span");
+        statusChip.className = item.status === "published" ? "chip chip-published" : "chip chip-draft";
+        statusChip.textContent = item.status === "published" ? "On the blog" : "Draft";
+        chips.appendChild(statusChip);
+        if (item.x_posted_at) {
+          const xChip = document.createElement("span");
+          xChip.className = "chip chip-x";
+          xChip.textContent = "Posted to X";
+          chips.appendChild(xChip);
+        }
+        row.append(left, chips);
+        row.addEventListener("click", () => openEditor(item.id));
+        list.appendChild(row);
+      }
+    }
+
+    $("new-piece-btn").addEventListener("click", () => {
+      resetNewPiece();
+      show("view-new");
+    });
+    $("new-back-btn").addEventListener("click", () => { show("view-list"); loadList(); });
+    $("editor-back-btn").addEventListener("click", () => { show("view-list"); loadList(); });
+
+    /* ---------------- New piece ---------------- */
+    let activeTab = "youtube";
+    document.querySelectorAll(".tab").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeTab = btn.dataset.tab;
+        document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b === btn));
+        for (const t of ["youtube", "type", "speak"]) {
+          $(`tab-${t}`).classList.toggle("hidden", t !== activeTab);
+        }
+      });
+    });
+
+    function resetNewPiece() {
+      $("yt-url").value = "";
+      $("yt-transcript").value = "";
+      $("dump-text").value = "";
+      $("speak-text").value = "";
+      $("yt-paste").classList.add("hidden");
+      setNote("yt-note", "");
+      setNote("gen-note", "");
+      $("gen-spinner").classList.add("hidden");
+      $("generate-btn").disabled = false;
+      fetchedTranscript = null;
+      stopDictation();
+    }
+
+    // YouTube transcript
+    let fetchedTranscript = null;
+    $("yt-fetch-btn").addEventListener("click", async () => {
+      const url = $("yt-url").value.trim();
+      if (!url) { setNote("yt-note", "Paste a YouTube link first.", "err"); return; }
+      setNote("yt-note", "Fetching the transcript…");
+      $("yt-fetch-btn").disabled = true;
+      try {
+        const result = await authedFetch("fetch-transcript", { video_url: url });
+        fetchedTranscript = result.transcript;
+        setNote("yt-note", `Got it — ${result.transcript.split(/\s+/).length.toLocaleString()} words. Ready to generate.`, "ok");
+        $("yt-paste").classList.add("hidden");
+      } catch {
+        fetchedTranscript = null;
+        setNote("yt-note", "YouTube blocked the automatic fetch (it does that sometimes). No problem — paste the transcript below instead.", "err");
+        $("yt-paste").classList.remove("hidden");
+      } finally {
+        $("yt-fetch-btn").disabled = false;
+      }
+    });
+
+    // Voice dictation
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let listening = false;
+    if (!SpeechRec) {
+      $("mic-btn").disabled = true;
+      $("mic-hint").textContent = "Voice dictation works in Chrome, Edge, and Safari — this browser doesn't support it. Use the “Type it” tab instead.";
+    }
+    function stopDictation() {
+      if (recognition) { recognition.onend = null; recognition.stop(); recognition = null; }
+      listening = false;
+      $("mic-dot")?.classList.add("hidden");
+      if ($("mic-btn")) $("mic-btn").textContent = "🎙 Start talking";
+    }
+    $("mic-btn").addEventListener("click", () => {
+      if (listening) { stopDictation(); return; }
+      recognition = new SpeechRec();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = "en-US";
+      let committed = $("speak-text").value ? $("speak-text").value.trim() + " " : "";
+      recognition.onresult = (e) => {
+        let interim = "";
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          const t = e.results[i][0].transcript;
+          if (e.results[i].isFinal) committed += t.trim() + " ";
+          else interim += t;
+        }
+        $("speak-text").value = committed + interim;
+      };
+      recognition.onend = () => { if (listening) recognition.start(); }; // keep listening through pauses
+      recognition.onerror = (e) => {
+        if (e.error === "not-allowed") {
+          stopDictation();
+          $("mic-hint").textContent = "The browser needs microphone permission — click Allow when it asks, then try again.";
+        }
+      };
+      recognition.start();
+      listening = true;
+      $("mic-dot").classList.remove("hidden");
+      $("mic-btn").textContent = "⏹ Stop";
+    });
+
+    // Generate
+    $("generate-btn").addEventListener("click", async () => {
+      let source_type, source_text, source_url = null;
+      if (activeTab === "youtube") {
+        source_type = "youtube";
+        source_url = $("yt-url").value.trim() || null;
+        source_text = fetchedTranscript || $("yt-transcript").value.trim();
+        if (!source_text) { setNote("gen-note", "Fetch or paste the transcript first.", "err"); return; }
+      } else if (activeTab === "type") {
+        source_type = "brain_dump";
+        source_text = $("dump-text").value.trim();
+        if (!source_text) { setNote("gen-note", "Type your brain dump first.", "err"); return; }
+      } else {
+        source_type = "voice";
+        source_text = $("speak-text").value.trim();
+        if (!source_text) { setNote("gen-note", "Dictate or type something first.", "err"); return; }
+        stopDictation();
+      }
+      setNote("gen-note", "");
+      $("generate-btn").disabled = true;
+      $("gen-spinner").classList.remove("hidden");
+      try {
+        const result = await authedFetch("generate-content", { source_type, source_text, source_url });
+        openEditor(result.item.id);
+      } catch (err) {
+        setNote("gen-note", `Something went wrong: ${err.message}. Your input is still here — try again.`, "err");
+      } finally {
+        $("generate-btn").disabled = false;
+        $("gen-spinner").classList.add("hidden");
+      }
+    });
+
+    /* ---------------- Editor ---------------- */
+    async function openEditor(id) {
+      const { data, error } = await supabase.from("content_items").select("*").eq("id", id).single();
+      if (error || !data) { setNote("list-note", "Couldn't open that item.", "err"); return; }
+      currentItem = data;
+      $("ed-title").value = data.title;
+      $("ed-slug").value = data.slug;
+      $("ed-excerpt").value = data.excerpt ?? "";
+      $("ed-blog").value = data.blog_markdown ?? "";
+      $("ed-linkedin").value = data.linkedin_post ?? "";
+      renderTweets(Array.isArray(data.x_posts) && data.x_posts.length ? data.x_posts : [""]);
+      updateBlogPreview();
+      updateLiCount();
+      setNote("editor-note", "");
+      $("publish-btn").textContent = data.status === "published" ? "Update published post" : "Publish to blog";
+      $("view-post-link").classList.toggle("hidden", data.status !== "published");
+      $("view-post-link").href = `post.html?slug=${encodeURIComponent(data.slug)}`;
+      const posted = Boolean(data.x_posted_at);
+      $("post-x-btn").disabled = posted;
+      $("post-x-btn").textContent = posted ? "Already posted to X" : "Post to X";
+      $("view-tweet-link").classList.toggle("hidden", !posted || !data.x_tweet_ids?.length);
+      if (posted && data.x_tweet_ids?.length) {
+        $("view-tweet-link").href = `https://x.com/i/status/${data.x_tweet_ids[0]}`;
+      }
+      show("view-editor");
+    }
+
+    function collectFields() {
+      return {
+        title: $("ed-title").value.trim(),
+        slug: $("ed-slug").value.trim().toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, ""),
+        excerpt: $("ed-excerpt").value.trim(),
+        blog_markdown: $("ed-blog").value,
+        linkedin_post: $("ed-linkedin").value,
+        x_posts: tweetValues().filter((t) => t.trim().length),
+        updated_at: new Date().toISOString(),
+      };
+    }
+
+    async function saveItem(extra = {}) {
+      const fields = { ...collectFields(), ...extra };
+      const { data, error } = await supabase
+        .from("content_items")
+        .update(fields)
+        .eq("id", currentItem.id)
+        .select()
+        .single();
+      if (error) throw error;
+      currentItem = data;
+      return data;
+    }
+
+    $("save-btn").addEventListener("click", async () => {
+      try {
+        await saveItem();
+        setNote("editor-note", "Saved.", "ok");
+      } catch {
+        setNote("editor-note", "Couldn't save — try again.", "err");
+      }
+    });
+
+    $("publish-btn").addEventListener("click", async () => {
+      try {
+        const data = await saveItem({
+          status: "published",
+          published_at: currentItem.published_at ?? new Date().toISOString(),
+        });
+        setNote("editor-note", "Published! It's live on the blog.", "ok");
+        $("publish-btn").textContent = "Update published post";
+        $("view-post-link").href = `post.html?slug=${encodeURIComponent(data.slug)}`;
+        $("view-post-link").classList.remove("hidden");
+      } catch {
+        setNote("editor-note", "Couldn't publish — try again.", "err");
+      }
+    });
+
+    $("archive-btn").addEventListener("click", async () => {
+      if (!confirm("Archive this piece? It comes off the blog and out of your list (nothing is deleted).")) return;
+      try {
+        await saveItem({ status: "archived" });
+        show("view-list");
+        loadList();
+      } catch {
+        setNote("editor-note", "Couldn't archive — try again.", "err");
+      }
+    });
+
+    $("copy-li-btn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText($("ed-linkedin").value);
+      setNote("editor-note", "LinkedIn post copied — opening LinkedIn…", "ok");
+      window.open("https://www.linkedin.com/feed/?shareActive=true", "_blank", "noopener");
+    });
+
+    // Blog preview
+    $("ed-blog").addEventListener("input", updateBlogPreview);
+    function updateBlogPreview() {
+      $("blog-preview").innerHTML = DOMPurify.sanitize(marked.parse($("ed-blog").value || "*Nothing yet.*"));
+    }
+
+    // LinkedIn char count
+    $("ed-linkedin").addEventListener("input", updateLiCount);
+    function updateLiCount() {
+      $("li-count").textContent = `${$("ed-linkedin").value.length.toLocaleString()} characters`;
+    }
+
+    // Tweets
+    function tweetValues() {
+      return [...document.querySelectorAll("#tweet-list textarea")].map((t) => t.value);
+    }
+    function renderTweets(tweets) {
+      const wrap = $("tweet-list");
+      wrap.innerHTML = "";
+      tweets.forEach((text, i) => {
+        const block = document.createElement("div");
+        block.className = "tweet-block";
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        const tools = document.createElement("div");
+        tools.className = "tweet-tools";
+        const remove = document.createElement("button");
+        remove.className = "link-quiet";
+        remove.textContent = tweets.length > 1 ? "Remove this post" : "";
+        remove.disabled = tweets.length <= 1;
+        remove.addEventListener("click", () => {
+          const vals = tweetValues();
+          vals.splice(i, 1);
+          renderTweets(vals);
+        });
+        const count = document.createElement("span");
+        count.className = "char-count";
+        const updateCount = () => {
+          count.textContent = `${ta.value.length}/280`;
+          count.classList.toggle("over", ta.value.length > 280);
+        };
+        ta.addEventListener("input", updateCount);
+        updateCount();
+        tools.append(remove, count);
+        block.append(ta, tools);
+        wrap.appendChild(block);
+      });
+    }
+    $("add-tweet-btn").addEventListener("click", () => renderTweets([...tweetValues(), ""]));
+
+    // Post to X
+    $("post-x-btn").addEventListener("click", async () => {
+      const tweets = tweetValues().filter((t) => t.trim().length);
+      if (!tweets.length) { setNote("editor-note", "Write at least one X post first.", "err"); return; }
+      const over = tweets.findIndex((t) => t.length > 280);
+      if (over !== -1) { setNote("editor-note", `Post ${over + 1} is over 280 characters — trim it first.`, "err"); return; }
+      const preview = tweets.map((t, i) => `${i + 1}. ${t}`).join("\n\n");
+      if (!confirm(`Post this to X right now?\n\n${preview}`)) return;
+      $("post-x-btn").disabled = true;
+      setNote("editor-note", "Posting to X…");
+      try {
+        await saveItem(); // persist any edits first so the server posts what's on screen
+        const result = await authedFetch("post-to-x", { content_item_id: currentItem.id });
+        setNote("editor-note", "Posted to X!", "ok");
+        $("post-x-btn").textContent = "Already posted to X";
+        if (result.tweet_url) {
+          $("view-tweet-link").href = result.tweet_url;
+          $("view-tweet-link").classList.remove("hidden");
+        }
+        currentItem.x_posted_at = new Date().toISOString();
+      } catch (err) {
+        setNote("editor-note", `Couldn't post to X: ${err.message}`, "err");
+        $("post-x-btn").disabled = false;
+      }
+    });
+
+    boot();
+  </script>
+</body>
+</html>

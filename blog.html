@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Notes — Second Story Consulting</title>
+  <meta name="description" content="Field notes on nonprofit fundraising from Second Story Consulting — donor relationships, development operations, and building programs that last.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E4573D'/%3E%3Cpath d='M20 40c0 4.4 4.5 7 11 7 7.2 0 12-3.2 12-8.6 0-4.8-3.4-7-9.8-8.6l-3.5-.9c-4-1-5.7-2.2-5.7-4.5 0-2.7 2.7-4.4 6.8-4.4 4.3 0 6.9 1.8 7.3 4.8h5.5c-.3-5.7-5.2-9.4-12.7-9.4-7.1 0-12.2 3.6-12.2 9.2 0 4.6 3.2 6.9 9.2 8.4l3.6.9c4.4 1.1 6.2 2.3 6.2 4.8 0 2.9-3 4.7-7.5 4.7-4.7 0-7.7-1.9-8.2-5h-5.5z' fill='%23FFFCF7'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Design tokens — kept in sync with index.html */
+    :root {
+      --paper: #FFFCF7;
+      --paper-soft: #F8F2E7;
+      --ink: #26221D;
+      --ink-dim: rgba(38, 34, 29, 0.70);
+      --ink-faint: rgba(38, 34, 29, 0.48);
+      --line: rgba(38, 34, 29, 0.14);
+      --coral: #E4573D;
+      --coral-deep: #C7442B;
+      --teal: #14766B;
+      --marigold: #DE9A2E;
+      --blush: #FAE7E0;
+      --mint:  #E3EFE9;
+      --gold:  #F8EDD5;
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      --container: 1120px;
+      --radius: 14px;
+      --radius-sm: 9px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection { background: var(--marigold); color: var(--ink); }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--coral-deep); outline-offset: 3px; }
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 252, 247, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .wordmark { font-family: var(--font-display); font-weight: 500; font-size: 1.18rem; letter-spacing: 0.01em; text-decoration: none; }
+    .wordmark em { font-style: italic; color: var(--coral-deep); }
+    .nav-links { display: flex; align-items: center; gap: 30px; font-size: 0.9rem; font-weight: 500; }
+    .nav-links a { text-decoration: none; color: var(--ink-dim); transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { color: var(--paper) !important; background: var(--ink); padding: 9px 18px; border-radius: var(--radius-sm); transition: background 0.2s ease; }
+    .nav-cta:hover { background: var(--coral-deep); }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--coral-deep); margin-bottom: 28px;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: var(--coral); }
+
+    .page-head { padding: 170px 0 30px; }
+    .page-head h1 {
+      font-family: var(--font-display); font-weight: 400;
+      font-size: clamp(2.4rem, 4.4vw, 3.6rem); line-height: 1.08;
+      letter-spacing: -0.02em; margin-bottom: 20px; text-wrap: balance;
+    }
+    .page-head h1 em { font-style: italic; font-weight: 500; color: var(--coral-deep); }
+    .page-head p { font-size: 1.12rem; color: var(--ink-dim); max-width: 560px; }
+
+    .posts { padding: 50px 0 110px; }
+    .post-list { display: grid; gap: 26px; max-width: 780px; }
+    .post-card {
+      display: block; text-decoration: none;
+      background: var(--paper-soft);
+      border-radius: var(--radius);
+      padding: 34px 32px;
+      box-shadow: 0 1px 2px rgba(38, 34, 29, 0.05), 0 14px 34px rgba(38, 34, 29, 0.10);
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 2px 4px rgba(38, 34, 29, 0.06), 0 24px 50px rgba(38, 34, 29, 0.16);
+    }
+    .post-card:nth-child(3n+1) { background: var(--blush); }
+    .post-card:nth-child(3n+2) { background: var(--mint); }
+    .post-card:nth-child(3n)   { background: var(--gold); }
+    .post-date { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+    .post-card h2 {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: 1.5rem; line-height: 1.25; margin: 10px 0 12px;
+    }
+    .post-card p { color: var(--ink-dim); font-size: 0.98rem; margin-bottom: 16px; }
+    .read-more {
+      font-size: 0.92rem; font-weight: 500; color: var(--coral-deep);
+      border-bottom: 2px solid var(--marigold); padding-bottom: 2px;
+    }
+    .list-note { color: var(--ink-dim); font-size: 1.02rem; max-width: 560px; }
+
+    footer { background: var(--ink); color: rgba(255, 252, 247, 0.6); padding: 44px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.88rem; }
+    footer .wordmark { color: var(--paper); }
+    footer .wordmark em { color: var(--coral); }
+    .footer-inner a { color: rgba(255, 252, 247, 0.75); text-decoration: none; }
+    .footer-inner a:hover { color: var(--paper); }
+
+    @media (max-width: 900px) {
+      .page-head { padding: 130px 0 10px; }
+      .nav-links { gap: 18px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .post-card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="wordmark" href="index.html">Second <em>Story</em></a>
+      <div class="nav-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#philosophy">Philosophy</a>
+        <a href="index.html#about">About</a>
+        <a href="blog.html">Field Notes</a>
+        <a class="nav-cta" href="index.html#contact">Let's talk</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="container">
+      <span class="eyebrow">Field Notes</span>
+      <h1>Notes from the <em>field</em>.</h1>
+      <p>Practical, field-tested thinking on nonprofit fundraising — donor relationships, development operations, and building programs that last.</p>
+    </div>
+  </header>
+
+  <section class="posts">
+    <div class="container">
+      <div class="post-list" id="post-list">
+        <p class="list-note">Loading…</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="wordmark" href="index.html">Second <em>Story</em></a>
+      <span>© 2026 Second Story Consulting</span>
+      <a href="mailto:rick.e.ardella@gmail.com">rick.e.ardella@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = "https://ftaqjencknwpdjogkabd.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_7B7eOMRW3UggVVGixw0RqA_dXQVs587";
+    const list = document.getElementById("post-list");
+
+    // Column-level grants mean anon must name columns explicitly — never select=*
+    fetch(`${SUPABASE_URL}/rest/v1/content_items?select=title,slug,excerpt,published_at&order=published_at.desc`, {
+      headers: { apikey: SUPABASE_KEY },
+    })
+      .then((r) => {
+        if (!r.ok) throw new Error("bad response");
+        return r.json();
+      })
+      .then((posts) => {
+        if (!posts.length) {
+          list.innerHTML = '<p class="list-note">The first field note is on its way. Check back soon.</p>';
+          return;
+        }
+        list.innerHTML = "";
+        for (const post of posts) {
+          const card = document.createElement("a");
+          card.className = "post-card";
+          card.href = `post.html?slug=${encodeURIComponent(post.slug)}`;
+          const date = new Date(post.published_at).toLocaleDateString("en-US", {
+            year: "numeric", month: "long", day: "numeric",
+          });
+          const h2 = document.createElement("h2");
+          h2.textContent = post.title;
+          const dateEl = document.createElement("span");
+          dateEl.className = "post-date";
+          dateEl.textContent = date;
+          const p = document.createElement("p");
+          p.textContent = post.excerpt ?? "";
+          const more = document.createElement("span");
+          more.className = "read-more";
+          more.textContent = "Read the note →";
+          card.append(dateEl, h2, p, more);
+          list.appendChild(card);
+        }
+      })
+      .catch(() => {
+        list.innerHTML = '<p class="list-note">Couldn’t load the notes just now — please try again in a moment.</p>';
+      });
+  </script>
+</body>
+</html>
