@@ -550,6 +550,10 @@
       color: var(--ink-dim);
       margin-bottom: 8px;
     }
+    .field .label-hint {
+      font-weight: 400;
+      color: var(--ink-faint);
+    }
     .field input,
     .field textarea {
       width: 100%;
@@ -856,8 +860,12 @@
           <input type="email" id="email" name="email" placeholder="you@organization.org" required>
         </div>
         <div class="field">
-          <label for="message">How can we help?</label>
-          <textarea id="message" name="message" placeholder="Tell us about your organization and what you're hoping to change…" required></textarea>
+          <label for="website">Organization website <span class="label-hint">(optional)</span></label>
+          <input type="text" id="website" name="website" inputmode="url" autocomplete="url" placeholder="www.yourorganization.org">
+        </div>
+        <div class="field">
+          <label for="message">What's your biggest development pain point right now?</label>
+          <textarea id="message" name="message" placeholder="Donor retention, a stalled campaign, board engagement, no time to write grants…" required></textarea>
         </div>
         <button class="btn-primary" type="submit">Send message</button>
         <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
@@ -955,7 +963,7 @@
 
       if (!form.checkValidity()) {
         note.className = "form-note err";
-        note.textContent = "Please fill in your name, a valid email, and a message.";
+        note.textContent = "Please fill in your name, a valid email, and your biggest pain point.";
         form.reportValidity();
         return;
       }
@@ -972,6 +980,7 @@
             name: form.name.value.trim(),
             email: form.email.value.trim(),
             message: form.message.value.trim(),
+            website: form.website.value.trim(),
             company: form.company.value
           })
         });
