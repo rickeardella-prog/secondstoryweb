@@ -37,6 +37,7 @@
       --blush: #FAE7E0;        /* card tints */
       --mint:  #E3EFE9;
       --gold:  #F8EDD5;
+      --sky:   #E4EBF1;
 
       --font-display: "Fraunces", Georgia, serif;
       --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -389,6 +390,22 @@
     .card-blush { --tint: var(--blush); }
     .card-mint  { --tint: var(--mint); }
     .card-gold  { --tint: var(--gold); }
+    .card-sky   { --tint: var(--sky); }
+
+    /* Featured wide card: the newest offering spans the full deck width */
+    .cards .card-wide {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      column-gap: 52px;
+      align-items: start;
+      padding: 42px 38px;
+    }
+    .card-wide .eyebrow { grid-column: 1; margin-bottom: 12px; }
+    .card-wide h3 { grid-column: 1; font-size: 1.5rem; }
+    .card-wide p  { grid-column: 1; margin-bottom: 0; }
+    .card-wide ul { grid-column: 2; grid-row: 1 / 4; margin-top: 6px; }
 
     /* ============================================================
        Philosophy — Listen / Connect / Suggest is a real sequence:
@@ -621,6 +638,8 @@
       .cards .card:nth-child(3) { margin-top: 0; }
       .cards .card:nth-child(1),
       .cards .card:nth-child(3) { padding: 38px 32px; }
+      .cards .card-wide { display: block; margin-top: 0; padding: 38px 32px; }
+      .card-wide p { margin-bottom: 18px; }
       .steps { grid-template-columns: 1fr; gap: 36px; }
       .contact-grid { grid-template-columns: 1fr; gap: 44px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -689,8 +708,8 @@
       <div class="head-row">
         <div class="section-head reveal">
           <span class="eyebrow">What we do</span>
-          <h2>Three ways to build your next chapter.</h2>
-          <p>Whether your development program needs a fresh start, stronger systems, or a steady partner — we meet you where you are.</p>
+          <h2>Four ways to build your next chapter.</h2>
+          <p>Whether your development program needs a fresh start, stronger systems, a steady partner, or an extra set of hands that never sleeps — we meet you where you are.</p>
         </div>
         <figure class="reveal">
           <img class="photo" src="img/field-notes.jpg" alt="A field notebook and pen on a desk — where every fundraising plan starts">
@@ -724,6 +743,16 @@
             <li>Monthly strategy &amp; advisory</li>
             <li>Campaign &amp; appeal support</li>
             <li>Board &amp; staff coaching</li>
+          </ul>
+        </article>
+        <article class="card card-sky card-wide reveal">
+          <span class="eyebrow">New</span>
+          <h3>AI Development Agent</h3>
+          <p>A custom-built AI assistant for your development office, delivered and tuned to your program. It handles the research and the busywork — prospect dossiers, briefings, follow-up drafts — so your team's hours go to donors, not data entry.</p>
+          <ul>
+            <li>Donor &amp; prospect research on demand</li>
+            <li>Automated briefings, drafts &amp; reports</li>
+            <li>Built for your org, with training &amp; support</li>
           </ul>
         </article>
       </div>
