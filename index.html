@@ -11,7 +11,7 @@
   <meta property="og:description" content="Every nonprofit deserves a second story. Fundraising program rebuilds, development operations, and ongoing fractional support.">
   <meta property="og:type" content="website">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E4573D'/%3E%3Cpath d='M20 40c0 4.4 4.5 7 11 7 7.2 0 12-3.2 12-8.6 0-4.8-3.4-7-9.8-8.6l-3.5-.9c-4-1-5.7-2.2-5.7-4.5 0-2.7 2.7-4.4 6.8-4.4 4.3 0 6.9 1.8 7.3 4.8h5.5c-.3-5.7-5.2-9.4-12.7-9.4-7.1 0-12.2 3.6-12.2 9.2 0 4.6 3.2 6.9 9.2 8.4l3.6.9c4.4 1.1 6.2 2.3 6.2 4.8 0 2.9-3 4.7-7.5 4.7-4.7 0-7.7-1.9-8.2-5h-5.5z' fill='%23FFFCF7'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="img/favicon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -659,6 +659,24 @@
       .cursor-glow { display: none; }
     }
   </style>
+  <style>
+    html, body { max-width: 100vw; overflow-x: hidden; }
+    img, svg, video { max-width: 100%; height: auto; }
+    @media (max-width: 900px) {
+      .container, section > div { min-width: 0; }
+    }
+  </style>
+
+  <style>
+    .nav { background: rgba(11,22,38,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,252,247,0.08); }
+    .nav .wordmark { color: #FFFCF7; }
+    .nav .wordmark em { color: #E9A63C; }
+    .nav-links a { color: rgba(255,252,247,0.75); }
+    .nav-links a:hover { color: #FFFCF7; }
+    .nav-cta { background: var(--coral); color: #FFFCF7 !important; }
+    .nav-cta:hover { background: var(--coral-deep); }
+  </style>
+
 </head>
 <body>
 
@@ -677,30 +695,47 @@
     </div>
   </nav>
 
-  <!-- ============================ HERO ============================ -->
-  <header class="hero" id="top">
-    <svg class="hero-arc" viewBox="0 0 600 520" aria-hidden="true">
-      <path class="arc-coral"    d="M0,430 C210,418 380,300 480,60"/>
-      <path class="arc-teal"     d="M0,470 C240,458 420,340 540,110"/>
-      <path class="arc-marigold" d="M0,510 C270,498 460,380 592,170"/>
-    </svg>
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <span class="eyebrow rise">Nonprofit fundraising consulting</span>
-        <h1 class="rise rise-2">Every nonprofit deserves a <em>second&nbsp;story</em>.</h1>
-        <p class="rise rise-3">
-          Second Story Consulting helps mission-driven organizations rebuild their
-          fundraising, strengthen the operations behind it, and grow relationships
-          that last, so the next chapter is the best one yet.
-        </p>
-        <div class="hero-actions rise rise-4">
-          <a class="btn-primary" href="#contact">Start the conversation</a>
-          <a class="btn-ghost" href="#services">Explore services ↓</a>
-        </div>
+  <!-- ===================== HERO (night edition, 2026-09-11) ===================== -->
+  <style>
+    .night-hero { position: relative; background: #0B1626; overflow: hidden; }
+    .night-hero .nh-bg { position: absolute; inset: 0; background: url("img/night-house.jpg") right center / cover no-repeat; }
+    .night-hero .nh-grade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,22,38,0.94) 0%, rgba(11,22,38,0.78) 45%, rgba(11,22,38,0.08) 78%); }
+    .night-hero .nh-inner { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; padding: 120px 24px 70px; }
+    .night-hero .eyebrow { color: #E9A63C; }
+    .night-hero .eyebrow::before { background: #E9A63C; }
+    .night-hero h1 { font-family: "Spectral", Georgia, serif; font-weight: 600; font-size: clamp(2.4rem, 5.2vw, 4.35rem); line-height: 1.12; color: #FFFCF7; max-width: 13ch; margin-top: 18px; }
+    .night-hero h1 em { font-style: italic; color: #E9A63C; }
+    .night-hero .nh-sub { font-size: 1.13rem; line-height: 1.7; color: rgba(255,252,247,0.82); max-width: 540px; margin-top: 22px; }
+    .night-hero .nh-ctas { display: flex; align-items: center; gap: 20px; margin-top: 36px; flex-wrap: wrap; }
+    .night-hero .nh-btn { background: var(--coral); color: #FFFCF7; font-weight: 600; font-size: 1.02rem; padding: 15px 30px; border-radius: 10px; text-decoration: none; transition: background 0.2s ease; }
+    .night-hero .nh-btn:hover { background: var(--coral-deep); }
+    .night-hero .nh-ghost { color: #FFFCF7; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(255,252,247,0.4); padding-bottom: 2px; }
+    .night-hero .nh-stats { display: flex; gap: 54px; margin-top: 84px; flex-wrap: wrap; }
+    .night-hero .nh-stat .n { font-family: "Spectral", Georgia, serif; font-weight: 600; font-size: 2rem; color: #E9A63C; }
+    .night-hero .nh-stat .l { font-size: 0.85rem; color: rgba(255,252,247,0.62); margin-top: 4px; max-width: 160px; }
+    @media (max-width: 900px) {
+      .night-hero .nh-bg { background-position: 74% center; }
+      .night-hero .nh-grade { background: linear-gradient(180deg, rgba(11,22,38,0.9) 0%, rgba(11,22,38,0.82) 60%, rgba(11,22,38,0.55) 100%); }
+      .night-hero .nh-inner { padding-top: 96px; }
+      .night-hero .nh-stats { gap: 30px; margin-top: 56px; }
+    }
+  </style>
+  <header class="night-hero" id="top">
+    <div class="nh-bg" role="img" aria-label="A house at night, one warm light on in the second-story window"></div>
+    <div class="nh-grade"></div>
+    <div class="nh-inner">
+      <span class="eyebrow rise">Nonprofit fundraising consulting</span>
+      <h1 class="rise rise-2">Every nonprofit deserves a <em>second&nbsp;story</em>.</h1>
+      <p class="nh-sub rise rise-3">Small nonprofits do the biggest work with the least machinery. Second Story installs working fundraising systems, and the capacity to run them, designed from day one to survive the consultant's departure.</p>
+      <div class="nh-ctas rise rise-4">
+        <a class="nh-btn" href="#contact">Start with an assessment</a>
+        <a class="nh-ghost" href="#services">See how it works</a>
       </div>
-      <figure class="hero-photo rise rise-3">
-        <img class="photo" src="img/workshop.jpg" alt="George Ricciardella leading a fundraising planning workshop">
-      </figure>
+      <div class="nh-stats rise rise-4">
+        <div class="nh-stat"><div class="n">$27M</div><div class="l">institutional funding secured</div></div>
+        <div class="nh-stat"><div class="n">7.5&times;</div><div class="l">giving growth in three years</div></div>
+        <div class="nh-stat"><div class="n">118 &rarr; 413</div><div class="l">donor file, tripled</div></div>
+      </div>
     </div>
   </header>
 
