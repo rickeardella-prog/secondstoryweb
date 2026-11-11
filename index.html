@@ -298,6 +298,24 @@
     .btn-ghost:hover { color: var(--ink); border-color: var(--coral); }
 
     /* ============================================================
+       In good company — the organizations Second Story works with
+       ============================================================ */
+    .clients { padding: 56px 0 64px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .clients .eyebrow { margin-bottom: 10px; }
+    .clients-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 34px; }
+    .clients-head p { color: var(--ink-dim); font-size: 0.98rem; margin: 0; }
+    .logo-row { display: flex; align-items: center; justify-content: space-between; gap: 40px 56px; flex-wrap: wrap; }
+    .logo-row a { display: inline-flex; align-items: center; text-decoration: none; }
+    .logo-row img {
+      height: 54px; width: auto; max-width: 220px; object-fit: contain;
+      filter: grayscale(1); opacity: 0.62;
+      transition: filter 0.25s ease, opacity 0.25s ease;
+    }
+    .logo-row a:hover img, .logo-row a:focus-visible img { filter: none; opacity: 1; }
+    .logo-row img.logo-tall { height: 64px; }
+    .logo-row img.logo-wide { height: 40px; max-width: 260px; }
+
+    /* ============================================================
        Shared section scaffolding
        ============================================================ */
     section { padding: 110px 0; }
@@ -643,6 +661,11 @@
       .steps { grid-template-columns: 1fr; gap: 36px; }
       .contact-grid { grid-template-columns: 1fr; gap: 44px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .clients { padding: 44px 0 48px; }
+      .logo-row { justify-content: center; gap: 28px 40px; }
+      .logo-row img { height: 44px; max-width: 170px; }
+      .logo-row img.logo-tall { height: 52px; }
+      .logo-row img.logo-wide { height: 32px; max-width: 200px; }
       .profile-card { position: static; max-width: 380px; margin: 0 auto; }
       .pull-quote { font-size: 1.25rem; }
       .nav-links { gap: 18px; }
@@ -703,6 +726,22 @@
       </figure>
     </div>
   </header>
+
+  <!-- ========================= IN GOOD COMPANY ========================= -->
+  <section class="clients" id="clients" aria-label="Organizations Second Story works with">
+    <div class="container">
+      <div class="clients-head reveal">
+        <span class="eyebrow">In good company</span>
+        <p>Small shops doing the biggest work, and the development behind them.</p>
+      </div>
+      <div class="logo-row reveal">
+        <a href="https://endoverdose.net" target="_blank" rel="noopener"><img src="img/clients/end-overdose.png" alt="End Overdose" class="logo-tall"></a>
+        <a href="https://www.bettertodaybettertomorrow.org" target="_blank" rel="noopener"><img src="img/clients/better-today-better-tomorrow.png" alt="Better Today Better Tomorrow" class="logo-tall"></a>
+        <a href="https://www.cleoscrittercare.org" target="_blank" rel="noopener"><img src="img/clients/cleos-critter-care.png" alt="Cleo's Critter Care, wildlife rescue and rehabilitation"></a>
+        <a href="https://winnersfoundation.org" target="_blank" rel="noopener"><img src="img/clients/winners-foundation.png" alt="Winners Foundation" class="logo-wide"></a>
+      </div>
+    </div>
+  </section>
 
   <!-- ========================== SERVICES ========================== -->
   <section class="services" id="services">
