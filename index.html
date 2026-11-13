@@ -3,762 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Second Story Consulting — Fundraising consulting for nonprofits</title>
-  <meta name="description" content="Second Story Consulting helps nonprofits rebuild their fundraising programs, strengthen development operations, and grow with responsive, donor-centered fundraising.">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Second Story Consulting">
-  <meta property="og:description" content="Every nonprofit deserves a second story. Fundraising program rebuilds, development operations, and ongoing fractional support.">
-  <meta property="og:type" content="website">
-
-  <link rel="icon" type="image/png" href="img/favicon.png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Spectral:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    /* ============================================================
-       Design tokens — recolor the whole site from here
-       ============================================================ */
-    :root {
-      --paper: #FFFCF7;        /* warm white base */
-      --paper-soft: #F8F2E7;   /* cream band for alternating sections */
-      --ink: #26221D;
-      --ink-dim: rgba(38, 34, 29, 0.70);
-      --ink-faint: rgba(38, 34, 29, 0.48);
-      --line: rgba(38, 34, 29, 0.14);
-
-      --coral: #E4573D;        /* primary accent */
-      --coral-deep: #C7442B;   /* text-safe / hover coral */
-      --teal: #14766B;
-      --marigold: #DE9A2E;
-
-      --blush: #FAE7E0;        /* card tints */
-      --mint:  #E3EFE9;
-      --gold:  #F8EDD5;
-      --sky:   #E4EBF1;
-
-      --font-display: "Spectral", Georgia, serif;
-      --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-
-      --container: 1120px;
-      --radius: 14px;
-      --radius-sm: 9px;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    /* Paper grain — one quiet layer of texture over the whole page */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      pointer-events: none;
-      opacity: 0.045;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    /* Warm glow that trails the cursor (created by JS on fine pointers only) */
-    .cursor-glow {
-      position: fixed;
-      top: -280px; left: -280px;
-      width: 560px; height: 560px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(228, 87, 61, 0.14), rgba(222, 154, 46, 0.07) 45%, transparent 70%);
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      z-index: 60;
-      will-change: transform;
-    }
-
-    ::selection { background: var(--marigold); color: var(--ink); }
-
-    a { color: inherit; }
-
-    a:focus-visible,
-    button:focus-visible,
-    input:focus-visible,
-    textarea:focus-visible {
-      outline: 2px solid var(--coral-deep);
-      outline-offset: 3px;
-    }
-
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Photography — every photo prints in black & white with a white border */
-    .photo {
-      display: block;
-      width: 100%;
-      object-fit: cover;
-      border-radius: var(--radius);
-      border: 5px solid #FFFFFF;
-      box-shadow: 0 10px 30px rgba(38, 34, 29, 0.10);
-      filter: grayscale(1);
-    }
-
-    /* ============================================================
-       Nav
-       ============================================================ */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      background: rgba(255, 252, 247, 0.82);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-    }
-    .wordmark {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 1.18rem;
-      letter-spacing: 0.01em;
-      text-decoration: none;
-    }
-    .wordmark em {
-      font-style: italic;
-      color: var(--coral-deep);
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--ink-dim);
-      transition: color 0.2s ease;
-    }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta {
-      color: var(--paper) !important;
-      background: var(--ink);
-      padding: 9px 18px;
-      border-radius: var(--radius-sm);
-      transition: background 0.2s ease;
-    }
-    .nav-cta:hover { background: var(--coral-deep); }
-
-    /* ============================================================
-       Hero — light, typographic, with the story arc as signature
-       ============================================================ */
-    .hero {
-      position: relative;
-      min-height: clamp(560px, 88svh, 880px);
-      display: flex;
-      align-items: center;
-      padding: 150px 0 110px;
-      overflow: hidden;
-      background:
-        radial-gradient(720px 420px at 8% -10%, rgba(20, 118, 107, 0.06), transparent 70%),
-        radial-gradient(820px 480px at 96% 108%, rgba(228, 87, 61, 0.07), transparent 70%),
-        var(--paper);
-    }
-
-    /* The story arc: three lines rising toward the next chapter */
-    .hero-arc {
-      position: absolute;
-      right: -60px;
-      bottom: -30px;
-      width: min(46vw, 640px);
-      height: auto;
-      pointer-events: none;
-    }
-    .hero-arc path {
-      fill: none;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-dasharray: 900;
-      stroke-dashoffset: 900;
-      animation: draw 1.6s cubic-bezier(0.5, 0, 0.2, 1) forwards;
-    }
-    .hero-arc .arc-coral    { stroke: var(--coral);    animation-delay: 0.25s; }
-    .hero-arc .arc-teal     { stroke: var(--teal);     animation-delay: 0.45s; }
-    .hero-arc .arc-marigold { stroke: var(--marigold); animation-delay: 0.65s; }
-    @keyframes draw { to { stroke-dashoffset: 0; } }
-
-    .hero-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 64px;
-      align-items: center;
-    }
-    .hero-content {
-      position: relative;
-    }
-    .hero-photo { margin: 0; position: relative; }
-    .hero-photo .photo { aspect-ratio: 4 / 5; object-position: 50% 40%; }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--coral-deep);
-      margin-bottom: 28px;
-    }
-    .eyebrow::before {
-      content: "";
-      width: 26px; height: 2px;
-      border-radius: 2px;
-      background: var(--coral);
-    }
-    .hero h1 { font-family: "DM Serif Display", Georgia, serif; font-weight: 400;
-      font-family: var(--font-display);
-      font-weight: 400;
-      font-size: clamp(2.6rem, 4.8vw, 4.1rem);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 28px;
-      text-wrap: balance;
-    }
-    .hero h1 em {
-      font-style: italic;
-      font-weight: 500;
-      color: var(--coral-deep);
-    }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--ink-dim);
-      max-width: 540px;
-      margin-bottom: 40px;
-    }
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 26px;
-      flex-wrap: wrap;
-    }
-
-    /* Page-load sequence: eyebrow, headline, copy, actions rise in turn */
-    .rise {
-      opacity: 0;
-      transform: translateY(16px);
-      animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-    .rise-2 { animation-delay: 0.1s; }
-    .rise-3 { animation-delay: 0.2s; }
-    .rise-4 { animation-delay: 0.3s; }
-    @keyframes rise {
-      to { opacity: 1; transform: none; }
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: var(--coral);
-      color: #FFF6F1;
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 15px 30px;
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-    .btn-primary:hover { background: var(--coral-deep); }
-    .btn-ghost {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--ink-dim);
-      text-decoration: none;
-      border-bottom: 2px solid var(--marigold);
-      padding-bottom: 3px;
-      transition: color 0.2s ease, border-color 0.2s ease;
-    }
-    .btn-ghost:hover { color: var(--ink); border-color: var(--coral); }
-
-    /* ============================================================
-       In good company — the organizations Second Story works with
-       ============================================================ */
-    .clients { padding: 56px 0 64px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .clients .eyebrow { margin-bottom: 10px; }
-    .clients-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 34px; }
-    .clients-head p { color: var(--ink-dim); font-size: 0.98rem; margin: 0; }
-    .logo-row { display: flex; align-items: center; justify-content: space-between; gap: 40px 56px; flex-wrap: wrap; }
-    .logo-row a { display: inline-flex; align-items: center; text-decoration: none; }
-    .logo-row img {
-      height: 54px; width: auto; max-width: 220px; object-fit: contain;
-      filter: grayscale(1); opacity: 0.62;
-      transition: filter 0.25s ease, opacity 0.25s ease;
-    }
-    .logo-row a:hover img, .logo-row a:focus-visible img { filter: none; opacity: 1; }
-    .logo-row img.logo-tall { height: 64px; }
-    .logo-row img.logo-wide { height: 40px; max-width: 260px; }
-
-    /* ============================================================
-       Shared section scaffolding
-       ============================================================ */
-    section { padding: 110px 0; }
-    .band { background: var(--paper-soft); }
-    .section-head { max-width: 640px; margin-bottom: 64px; }
-
-    /* Section header with a photo alongside */
-    .head-row {
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 64px;
-      align-items: center;
-      margin-bottom: 64px;
-    }
-    .head-row .section-head { margin-bottom: 0; }
-    .head-row figure { margin: 0; }
-    .head-row .photo { aspect-ratio: 4 / 3; }
-    .section-head h2 {
-      font-family: var(--font-display);
-      font-weight: 400;
-      font-size: clamp(1.9rem, 4vw, 2.8rem);
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      margin: 16px 0 18px;
-      text-wrap: balance;
-    }
-    .section-head p { color: var(--ink-dim); font-size: 1.05rem; }
-
-    /* Scroll-reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.in {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ============================================================
-       Services — three tinted cards, one per color
-       ============================================================ */
-    .cards {
-      display: grid;
-      grid-template-columns: 1.18fr 1fr 0.92fr;
-      gap: 26px;
-      align-items: start;
-      perspective: 1100px;
-    }
-    .card {
-      background: var(--tint, var(--paper-soft));
-      border-radius: var(--radius);
-      padding: 38px 32px;
-      box-shadow:
-        0 1px 2px rgba(38, 34, 29, 0.05),
-        0 14px 34px rgba(38, 34, 29, 0.10);
-      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
-      will-change: transform;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 2px 4px rgba(38, 34, 29, 0.06),
-        0 24px 50px rgba(38, 34, 29, 0.16);
-    }
-    /* Vary the deck: a featured lead card, then progressively smaller,
-       each starting a step lower than the last */
-    .cards .card:nth-child(1) { padding: 48px 38px; }
-    .cards .card:nth-child(1) h3 { font-size: 1.62rem; }
-    .cards .card:nth-child(2) { margin-top: 36px; }
-    .cards .card:nth-child(3) { margin-top: 68px; padding: 32px 28px; }
-    .cards .card:nth-child(3) h3 { font-size: 1.32rem; }
-    .card h3 {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 1.45rem;
-      line-height: 1.25;
-      margin-bottom: 14px;
-    }
-    .card p { color: var(--ink-dim); font-size: 0.98rem; margin-bottom: 18px; }
-    .card ul {
-      list-style: none;
-      font-size: 0.92rem;
-      color: var(--ink-dim);
-    }
-    .card li {
-      padding: 8px 0;
-      border-top: 1px solid rgba(38, 34, 29, 0.10);
-    }
-    .card-blush { --tint: var(--blush); }
-    .card-mint  { --tint: var(--mint); }
-    .card-gold  { --tint: var(--gold); }
-    .card-sky   { --tint: var(--sky); }
-
-    /* Featured wide card: the newest offering spans the full deck width */
-    .cards .card-wide {
-      grid-column: 1 / -1;
-      margin-top: 8px;
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      column-gap: 52px;
-      align-items: start;
-      padding: 42px 38px;
-    }
-    .card-wide .eyebrow { grid-column: 1; margin-bottom: 12px; }
-    .card-wide h3 { grid-column: 1; font-size: 1.5rem; }
-    .card-wide p  { grid-column: 1; margin-bottom: 0; }
-    .card-wide ul { grid-column: 2; grid-row: 1 / 4; margin-top: 6px; }
-
-    /* ============================================================
-       Philosophy — Listen / Connect / Suggest is a real sequence:
-       each step gets a colored rule in order
-       ============================================================ */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px;
-    }
-    .step {
-      border-top: 3px solid var(--step-color, var(--line));
-      padding-top: 22px;
-    }
-    .step-1 { --step-color: var(--coral); }
-    .step-2 { --step-color: var(--teal); }
-    .step-3 { --step-color: var(--marigold); }
-    .step .numeral {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--ink-faint);
-      display: block;
-      margin-bottom: 8px;
-    }
-    .step h3 {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 1.6rem;
-      margin-bottom: 12px;
-    }
-    .step p { color: var(--ink-dim); font-size: 0.98rem; }
-    .philosophy-credit {
-      margin-top: 56px;
-      font-size: 0.9rem;
-      color: var(--ink-faint);
-      font-style: italic;
-    }
-    .philosophy-credit a { color: var(--ink-dim); }
-
-    /* ============================================================
-       About
-       ============================================================ */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 70px;
-      align-items: start;
-    }
-    .profile-card {
-      background: #FFFFFF;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 40px 34px;
-      text-align: center;
-      position: sticky;
-      top: 100px;
-      box-shadow:
-        0 1px 2px rgba(38, 34, 29, 0.05),
-        0 16px 40px rgba(38, 34, 29, 0.10);
-    }
-    .profile-photo {
-      aspect-ratio: 4 / 5;
-      object-position: 45% 22%;
-      margin-bottom: 24px;
-    }
-    .profile-card h3 {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 1.4rem;
-      margin-bottom: 4px;
-    }
-    .profile-card .role {
-      font-size: 0.88rem;
-      color: var(--ink-dim);
-      margin-bottom: 28px;
-    }
-    .profile-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid var(--line);
-      padding-top: 24px;
-      gap: 12px;
-    }
-    .stat .stat-num {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 1.7rem;
-      display: block;
-      color: var(--teal);
-    }
-    .stat .stat-label {
-      font-size: 0.78rem;
-      color: var(--ink-faint);
-      line-height: 1.4;
-      display: block;
-      margin-top: 4px;
-    }
-    .about-body p {
-      color: var(--ink-dim);
-      margin-bottom: 20px;
-      font-size: 1.02rem;
-    }
-    .about-body p strong { color: var(--ink); font-weight: 600; }
-    .pull-quote {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 1.45rem;
-      line-height: 1.45;
-      color: var(--ink);
-      border-left: 3px solid var(--coral);
-      padding: 6px 0 6px 26px;
-      margin: 34px 0;
-    }
-
-    /* ============================================================
-       Contact
-       ============================================================ */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 70px;
-      align-items: start;
-    }
-    .contact-blurb h2 {
-      font-family: var(--font-display);
-      font-weight: 400;
-      font-size: clamp(1.9rem, 4vw, 2.8rem);
-      line-height: 1.15;
-      margin: 16px 0 18px;
-    }
-    .contact-blurb h2 em {
-      font-style: italic;
-      font-weight: 500;
-      color: var(--coral-deep);
-    }
-    .contact-blurb p { color: var(--ink-dim); margin-bottom: 26px; }
-    .contact-alt { font-size: 0.9rem; color: var(--ink-faint); }
-    .contact-alt a { color: var(--ink-dim); }
-    .contact-photo { margin: 32px 0 0; }
-    .contact-photo .photo { aspect-ratio: 4 / 3; object-position: 50% 28%; }
-
-    .form-card {
-      background: #FFFFFF;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 38px 34px;
-      box-shadow:
-        0 1px 2px rgba(38, 34, 29, 0.05),
-        0 16px 40px rgba(38, 34, 29, 0.10);
-    }
-    .field { margin-bottom: 20px; }
-    .field label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--ink-dim);
-      margin-bottom: 8px;
-    }
-    .field .label-hint {
-      font-weight: 400;
-      color: var(--ink-faint);
-    }
-    .field input,
-    .field textarea {
-      width: 100%;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-sm);
-      padding: 13px 16px;
-      color: var(--ink);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      transition: border-color 0.2s ease;
-    }
-    .field textarea { resize: vertical; min-height: 120px; }
-    .field input:focus,
-    .field textarea:focus {
-      outline: none;
-      border-color: var(--coral);
-    }
-    .field input::placeholder,
-    .field textarea::placeholder { color: var(--ink-faint); }
-    .form-card .btn-primary { width: 100%; margin-top: 6px; }
-    .form-note {
-      margin-top: 16px;
-      font-size: 0.9rem;
-      min-height: 1.4em;
-    }
-    .form-note.ok { color: var(--teal); }
-    .form-note.err { color: var(--coral-deep); }
-
-    /* ============================================================
-       Footer — dark ink to close the page
-       ============================================================ */
-    footer {
-      background: var(--ink);
-      color: rgba(255, 252, 247, 0.6);
-      padding: 44px 0;
-    }
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-size: 0.88rem;
-    }
-    footer .wordmark { color: var(--paper); }
-    footer .wordmark em { color: var(--coral); }
-    .footer-inner a { color: rgba(255, 252, 247, 0.75); text-decoration: none; }
-    .footer-inner a:hover { color: var(--paper); }
-
-    /* ============================================================
-       Responsive
-       ============================================================ */
-    @media (max-width: 900px) {
-      section { padding: 80px 0; }
-      .hero { padding: 130px 0 80px; }
-      .hero-arc { width: 74vw; right: -18vw; bottom: -16px; opacity: 0.45; }
-      .hero-grid { grid-template-columns: 1fr; gap: 44px; }
-      .hero-photo { max-width: 420px; }
-      .hero-photo .photo { aspect-ratio: 5 / 4; }
-      .head-row { grid-template-columns: 1fr; gap: 40px; }
-      .head-row .photo { aspect-ratio: 16 / 10; }
-      .cards { grid-template-columns: 1fr; gap: 22px; }
-      .cards .card:nth-child(2),
-      .cards .card:nth-child(3) { margin-top: 0; }
-      .cards .card:nth-child(1),
-      .cards .card:nth-child(3) { padding: 38px 32px; }
-      .cards .card-wide { display: block; margin-top: 0; padding: 38px 32px; }
-      .card-wide p { margin-bottom: 18px; }
-      .steps { grid-template-columns: 1fr; gap: 36px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 44px; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .clients { padding: 44px 0 48px; }
-      .logo-row { justify-content: center; gap: 28px 40px; }
-      .logo-row img { height: 44px; max-width: 170px; }
-      .logo-row img.logo-tall { height: 52px; }
-      .logo-row img.logo-wide { height: 32px; max-width: 200px; }
-      .profile-card { position: static; max-width: 380px; margin: 0 auto; }
-      .pull-quote { font-size: 1.25rem; }
-      .nav-links { gap: 18px; }
-      .nav-links a:not(.nav-cta) { display: none; }
-    }
-
-    /* Accessibility: honor reduced-motion */
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .rise { animation: none; opacity: 1; transform: none; }
-      .hero-arc path { animation: none; stroke-dashoffset: 0; }
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .btn-primary, .card { transition: none; }
-      .cursor-glow { display: none; }
-    }
-  </style>
+  <title>Second Story Consulting — Nonprofit fundraising consulting</title>
+  <meta name="description" content="Second Story Consulting helps mission-driven organizations rebuild their fundraising, strengthen the operations behind it, and grow relationships that last.">
+  <meta name="theme-color" content="#0E2A45">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/house.css">
 </head>
-<body>
+<body id="top">
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="wordmark" href="#top">Second <em>Story</em></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#about">About</a>
+      <a href="blog.html">Field Notes</a>
+      <a href="toolkit.html">The Toolkit</a>
+      <a href="partners.html">For Nonprofits</a>
+      <a class="nav-cta" href="#contact">Let's talk</a>
+    </div>
+  </div>
+</nav>
 
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a class="wordmark" href="#top">Second <em>Story</em></a>
-      <div class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#philosophy">Philosophy</a>
-        <a href="#about">About</a>
-        <a href="blog.html">Field Notes</a>
-        <a href="toolkit.html">The Toolkit</a>
-        <a href="partners.html">For Nonprofits</a>
-        <a class="nav-cta" href="#contact">Let's talk</a>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-stars" aria-hidden="true"></div>
+  <div class="hero-art" role="img" aria-label="A small house at night with one upstairs window lit, someone at work inside"></div>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Nonprofit fundraising consulting</span>
+      <h1>Every nonprofit deserves a <em>second&nbsp;story</em>.</h1>
+      <p>Second Story Consulting helps mission-driven organizations rebuild their fundraising, strengthen the operations behind it, and grow relationships that last, so the next chapter is the best one yet.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">Start the conversation</a>
+        <a class="btn-ghost" href="#services">Explore services ↓</a>
       </div>
     </div>
-  </nav>
+  </div>
+</header>
 
-  <!-- ============================ HERO ============================ -->
-  <header class="hero" id="top">
-    <svg class="hero-arc" viewBox="0 0 600 520" aria-hidden="true">
-      <path class="arc-coral"    d="M0,430 C210,418 380,300 480,60"/>
-      <path class="arc-teal"     d="M0,470 C240,458 420,340 540,110"/>
-      <path class="arc-marigold" d="M0,510 C270,498 460,380 592,170"/>
-    </svg>
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <span class="eyebrow rise">Nonprofit fundraising consulting</span>
-        <h1 class="rise rise-2">Every nonprofit deserves a <em>second&nbsp;story</em>.</h1>
-        <p class="rise rise-3">
-          Second Story Consulting helps mission-driven organizations rebuild their
-          fundraising, strengthen the operations behind it, and grow relationships
-          that last, so the next chapter is the best one yet.
-        </p>
-        <div class="hero-actions rise rise-4">
-          <a class="btn-primary" href="#contact">Start the conversation</a>
-          <a class="btn-ghost" href="#services">Explore services ↓</a>
-        </div>
-      </div>
-      <figure class="hero-photo rise rise-3">
-        <img class="photo" src="img/workshop.jpg" alt="George Ricciardella leading a fundraising planning workshop">
-      </figure>
+<!-- IN GOOD COMPANY -->
+<section class="clients" id="clients" aria-label="Organizations Second Story works with">
+  <div class="container">
+    <div class="clients-head reveal">
+      <span class="eyebrow">In good company</span>
+      <p>Small shops doing the biggest work, and the development behind them.</p>
     </div>
-  </header>
-
-  <!-- ========================= IN GOOD COMPANY ========================= -->
-  <section class="clients" id="clients" aria-label="Organizations Second Story works with">
-    <div class="container">
-      <div class="clients-head reveal">
-        <span class="eyebrow">In good company</span>
-        <p>Small shops doing the biggest work, and the development behind them.</p>
-      </div>
-      <div class="logo-row reveal">
-        <a href="https://endoverdose.net" target="_blank" rel="noopener"><img src="img/clients/end-overdose.png" alt="End Overdose" class="logo-tall"></a>
-        <a href="https://www.bettertodaybettertomorrow.org" target="_blank" rel="noopener"><img src="img/clients/better-today-better-tomorrow.png" alt="Better Today Better Tomorrow" class="logo-tall"></a>
-        <a href="https://www.cleoscrittercare.org" target="_blank" rel="noopener"><img src="img/clients/cleos-critter-care.png" alt="Cleo's Critter Care, wildlife rescue and rehabilitation"></a>
-        <a href="https://winnersfoundation.org" target="_blank" rel="noopener"><img src="img/clients/winners-foundation.png" alt="Winners Foundation" class="logo-wide"></a>
-      </div>
+    <div class="logo-row reveal">
+      <a href="https://endoverdose.net" target="_blank" rel="noopener"><img src="img/clients/end-overdose.png" alt="End Overdose" class="logo-tall"></a>
+      <a href="https://www.bettertodaybettertomorrow.org" target="_blank" rel="noopener"><img src="img/clients/better-today-better-tomorrow.png" alt="Better Today Better Tomorrow" class="logo-tall"></a>
+      <a href="https://www.cleoscrittercare.org" target="_blank" rel="noopener"><img src="img/clients/cleos-critter-care.png" alt="Cleo's Critter Care, wildlife rescue and rehabilitation"></a>
+      <a href="https://winnersfoundation.org" target="_blank" rel="noopener"><img src="img/clients/winners-foundation.png" alt="Winners Foundation" class="logo-wide"></a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ========================== SERVICES ========================== -->
-  <section class="services" id="services">
-    <div class="container">
-      <div class="head-row">
-        <div class="section-head reveal">
-          <span class="eyebrow">What we do</span>
-          <h2>One arc, four phases.</h2>
-          <p>Rebuild the program, run it together, keep senior counsel on call, and add an AI development office when you're ready. Each phase stands on its own; nothing rolls forward without your yes.</p>
-        </div>
-        <figure class="reveal">
-          <img class="photo" src="img/field-notes.jpg" alt="A field notebook and pen on a desk, where every fundraising plan starts">
-        </figure>
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="head-row">
+      <div class="section-head reveal">
+        <span class="eyebrow">What we do</span>
+        <h2>One arc, four phases.</h2>
+        <p>Rebuild the program, run it together, keep senior counsel on call, and add an AI development office when you're ready. Each phase stands on its own; nothing rolls forward without your yes.</p>
       </div>
-      <div class="cards">
+      <figure class="reveal"><img class="photo" src="img/field-notes.jpg" alt="A field notebook and pen on a desk, where every fundraising plan starts"></figure>
+    </div>
+<div class="cards">
         <!-- Alternate names: "Fundraising Program Rebuild", "Development Reset" -->
-        <article class="card card-blush reveal">
+        <article class="card reveal">
           <h3>The Rebuild</h3>
           <p>Phase 1, 90 days. The ground-up rebuild of your fundraising program: the audit, the donor data foundation, the case for support, and a 12-month calendar with named owners.</p>
           <ul>
@@ -767,7 +82,7 @@
             <li>Case for support &amp; 12-month plan</li>
           </ul>
         </article>
-        <article class="card card-mint reveal">
+        <article class="card reveal">
           <h3>The Operating Retainer</h3>
           <p>Phase 2, months 4 to 6. The machine is built; now we run it together. I drive the first half, your team drives the second, and ownership transfers on a published schedule.</p>
           <ul>
@@ -777,7 +92,7 @@
           </ul>
         </article>
         <!-- Alternate names: "Ongoing Partnership", "Monthly Advisory" -->
-        <article class="card card-gold reveal">
+        <article class="card reveal">
           <h3>Standing Counsel</h3>
           <p>Phase 3, ongoing. Senior judgment on call, never a dependency: strategy when you need it and a second set of eyes on everything that ships.</p>
           <ul>
@@ -786,7 +101,7 @@
             <li>On-call access for the moments that can't wait</li>
           </ul>
         </article>
-        <article class="card card-sky card-wide reveal">
+        <article class="card card-wide reveal">
           <span class="eyebrow">New</span>
           <h3>AI Development Office</h3>
           <p>A custom-built AI development agent for your office, delivered and tuned to your program. It handles the research and the busywork: prospect dossiers, briefings, follow-up drafts. Your team's hours go to donors, not data entry. Available on its own or alongside any phase.</p>
@@ -797,77 +112,49 @@
           </ul>
         </article>
       </div>
-    </div>
-  </section>
+    
+  </div>
+</section>
 
-  <!-- ========================= PHILOSOPHY ========================= -->
-  <section class="philosophy band" id="philosophy">
-    <div class="container">
-      <div class="head-row">
-        <div class="section-head reveal">
-          <span class="eyebrow">How we think</span>
-          <h2>Donors are people, not line items.</h2>
-          <p>
-            Generosity grows when people feel seen. We practice responsive fundraising:
-            personal, timely, and built around each donor's connection to your mission,
-            not a mass-mail calendar.
-          </p>
-        </div>
-        <figure class="reveal">
-          <img class="photo" src="img/event-conversation.jpg" alt="George Ricciardella in conversation at a fundraising event">
-        </figure>
-      </div>
-      <div class="steps">
-        <div class="step step-1 reveal">
-          <span class="numeral">i.</span>
-          <h3>Listen</h3>
-          <p>Pay attention to the signals donors are already sending: what they give to, respond to, and care about.</p>
-        </div>
-        <div class="step step-2 reveal">
-          <span class="numeral">ii.</span>
-          <h3>Connect</h3>
-          <p>Reach out personally and in the right moment, with a message that matches where each donor actually is.</p>
-        </div>
-        <div class="step step-3 reveal">
-          <span class="numeral">iii.</span>
-          <h3>Suggest</h3>
-          <p>Invite the next step that fits: the right ask, at the right time, in service of the donor's own generosity.</p>
-        </div>
-      </div>
-      <p class="philosophy-credit reveal">
-        Inspired by the Listen → Connect → Suggest framework from <em>Responsive Fundraising</em>.
-      </p>
-    </div>
-  </section>
-
-  <!-- =========================== ABOUT ============================ -->
-  <section class="about" id="about">
-    <div class="container">
+<!-- PHILOSOPHY -->
+<section class="philosophy night" id="philosophy">
+  <div class="container">
+    <div class="head-row">
       <div class="section-head reveal">
-        <span class="eyebrow">Who you'll work with</span>
-        <h2>Grounded, collaborative, and allergic to jargon.</h2>
+        <span class="eyebrow">How we think</span>
+        <h2>Donors are people, not line items.</h2>
+        <p>Generosity grows when people feel seen. We practice responsive fundraising: personal, timely, and built around each donor's connection to your mission, not a mass-mail calendar.</p>
       </div>
-      <div class="about-grid">
-        <aside class="profile-card reveal">
-          <img class="photo profile-photo" src="img/george-whiteboard.jpg" alt="George Ricciardella at a whiteboard planning session">
-          <h3>George Ricciardella</h3>
-          <p class="role">Founder, Second Story Consulting</p>
-          <div class="profile-stats">
-            <div class="stat">
-              <span class="stat-num">12</span>
-              <span class="stat-label">years in nonprofit development</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">$30M</span>
-              <span class="stat-label">in public funding secured for nonprofits</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">7&times;</span>
-              <span class="stat-label">growth in annual fundraising</span>
-            </div>
-          </div>
-        </aside>
-        <div class="about-body reveal">
+      <figure class="reveal"><img class="photo" src="img/event-conversation.jpg" alt="George Ricciardella in conversation at a fundraising event"></figure>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="numeral">i.</span><h3>Listen</h3><p>Pay attention to the signals donors are already sending: what they give to, respond to, and care about.</p></div>
+      <div class="step reveal"><span class="numeral">ii.</span><h3>Connect</h3><p>Reach out personally and in the right moment, with a message that matches where each donor actually is.</p></div>
+      <div class="step reveal"><span class="numeral">iii.</span><h3>Suggest</h3><p>Invite the next step that fits: the right ask, at the right time, in service of the donor's own generosity.</p></div>
+    </div>
+    <p class="philosophy-credit reveal">Inspired by the Listen → Connect → Suggest framework from <em>Responsive Fundraising</em>.</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Who you'll work with</span>
+      <h2>Grounded, collaborative, and allergic to jargon.</h2>
+    </div>
+    <div class="about-grid">
+      <aside class="profile-card reveal">
+        <img class="photo profile-photo" src="img/george-whiteboard.jpg" alt="George Ricciardella at a whiteboard planning session">
+        <h3>George Ricciardella</h3>
+        <p class="role">Founder, Second Story Consulting</p>
+        <div class="profile-stats">
+          <div class="stat"><span class="stat-num">12</span><span class="stat-label">years in nonprofit development</span></div>
+          <div class="stat"><span class="stat-num">$30M</span><span class="stat-label">in public funding secured for nonprofits</span></div>
+          <div class="stat"><span class="stat-num">7&times;</span><span class="stat-label">growth in annual fundraising</span></div>
+        </div>
+      </aside>
+<div class="about-body reveal">
           <p>
             George Ricciardella is a nonprofit development professional with twelve
             years of experience helping mission-driven organizations strengthen their
@@ -896,20 +183,21 @@
             possible, and what steps will create real momentum.
           </p>
         </div>
-      </div>
+      
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ========================== A LA CARTE ========================== -->
-  <section class="services" id="alacarte">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">A la carte</span>
-        <h2>Need one piece, not the whole arc?</h2>
-        <p>Every service below is a flat fee with a defined deliverable. No hourly meters, and nothing contingent on funds raised. One conversation scopes it; <a href="#contact">start that conversation here</a>.</p>
-      </div>
-      <div class="cards">
-        <article class="card card-blush reveal">
+<!-- A LA CARTE -->
+<section class="services soft" id="alacarte">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">A la carte</span>
+      <h2>Need one piece, not the whole arc?</h2>
+      <p>Every service below is a flat fee with a defined deliverable. No hourly meters, and nothing contingent on funds raised. One conversation scopes it; <a href="#contact">start that conversation here</a>.</p>
+    </div>
+<div class="cards">
+        <article class="card reveal">
           <h3>The Grants Lane Starter</h3>
           <p>Ninety days. Grant policies and readiness docs, funder research matched to your needs, reusable core templates, a 12-month calendar, and one timely application prepared and submitted where a real deadline lines up.</p>
           <ul>
@@ -918,7 +206,7 @@
             <li>One application, written and submitted</li>
           </ul>
         </article>
-        <article class="card card-mint reveal">
+        <article class="card reveal">
           <h3>Donor Data Health Cleanup</h3>
           <p>Our data health plan run on your CRM export: duplicates resolved, records standardized, gaps flagged, and a report your whole team can act on. Practical segmentation available as an add-on.</p>
           <ul>
@@ -927,7 +215,7 @@
             <li>Segmentation add-on available</li>
           </ul>
         </article>
-        <article class="card card-gold reveal">
+        <article class="card reveal">
           <h3>Campaign Consultation</h3>
           <p>One campaign designed end to end: theme, segments, calendar, and copy review through send day. Year-end appeal, spring campaign, or the first campaign your org has ever run.</p>
           <ul>
@@ -936,7 +224,7 @@
             <li>Copy review before anything ships</li>
           </ul>
         </article>
-        <article class="card card-sky reveal">
+        <article class="card reveal">
           <h3>Case for Support</h3>
           <p>The written answer to "why should I give to you," built to be reused in every appeal, application, and conversation your organization has for the next three years.</p>
           <ul>
@@ -946,155 +234,63 @@
           </ul>
         </article>
       </div>
+    
+  </div>
+</section>
+
+<!-- TOOLKIT TEASER -->
+<section class="teaser" id="toolkit">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The toolkit</span>
+      <h2>Do it yourself, tonight.</h2>
+      <p>Not ready for an engagement? Ten field-tested templates, calendars, checklists and playbooks from real client work, packaged for the solo ED. Instant download, yours forever.</p>
+      <a class="btn-primary" href="toolkit.html">Browse the Toolkit</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ========================== TOOLKIT TEASER ========================== -->
-  <section class="services band" id="toolkit">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">The toolkit</span>
-        <h2>Do it yourself, tonight.</h2>
-        <p>Not ready for an engagement? Ten field-tested templates, calendars, checklists and playbooks from real client work, packaged for the solo ED. Instant download, yours forever.</p>
-        <a class="btn-primary" href="toolkit.html">Browse the Toolkit</a>
-      </div>
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-blurb reveal">
+      <span class="eyebrow">Get in touch</span>
+      <h2>Start your <em>second story</em>.</h2>
+      <p>Tell us a little about your organization and where fundraising feels stuck. We'll follow up within two business days to set up a free introductory call: no pitch, just a conversation.</p>
+      <p class="contact-alt">Prefer email? Reach us directly at <a href="mailto:george@secondstoryconsulting.com">george@secondstoryconsulting.com</a>, or connect with George on <a href="https://www.linkedin.com/in/georgericciardella" target="_blank" rel="noopener">LinkedIn</a>, <a href="https://www.instagram.com/secondstoryconsulting/" target="_blank" rel="noopener">Instagram</a>, or <a href="https://www.youtube.com/@SecondStoryConsulting" target="_blank" rel="noopener">YouTube</a>.</p>
+      <figure class="contact-photo"><img class="photo" src="img/george-listening.jpg" alt="George Ricciardella listening during a conversation at an event"></figure>
     </div>
-  </section>
 
-  <!-- ========================== CONTACT =========================== -->
-  <section class="contact band" id="contact">
-    <div class="container contact-grid">
-      <div class="contact-blurb reveal">
-        <span class="eyebrow">Get in touch</span>
-        <h2>Start your <em>second story</em>.</h2>
-        <p>
-          Tell us a little about your organization and where fundraising feels stuck.
-          We'll follow up within two business days to set up a free introductory call:
-          no pitch, just a conversation.
-        </p>
-        <p class="contact-alt">
-          Prefer email? Reach us directly at
-          <a href="mailto:george@secondstoryconsulting.com">george@secondstoryconsulting.com</a>,
-          or connect with George on <a href="https://www.linkedin.com/in/georgericciardella" target="_blank" rel="noopener">LinkedIn</a>, <a href="https://www.instagram.com/secondstoryconsulting/" target="_blank" rel="noopener">Instagram</a>, or <a href="https://www.youtube.com/@SecondStoryConsulting" target="_blank" rel="noopener">YouTube</a>.
-        </p>
-        <figure class="contact-photo">
-          <img class="photo" src="img/george-listening.jpg" alt="George Ricciardella listening during a conversation at an event">
-        </figure>
-      </div>
+  </div>
+</section>
 
-      <form class="form-card reveal" id="contact-form" novalidate>
-        <div class="field">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required>
-        </div>
-        <!-- Honeypot: hidden from people, bots fill it in and get silently rejected -->
-        <div class="field" style="position: absolute; left: -9999px;" aria-hidden="true">
-          <label for="company">Company</label>
-          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="you@organization.org" required>
-        </div>
-        <div class="field">
-          <label for="website">Organization website <span class="label-hint">(optional)</span></label>
-          <input type="text" id="website" name="website" inputmode="url" autocomplete="url" placeholder="www.yourorganization.org">
-        </div>
-        <div class="field">
-          <label for="message">What's your biggest development pain point right now?</label>
-          <textarea id="message" name="message" placeholder="Donor retention, a stalled campaign, board engagement, no time to write grants…" required></textarea>
-        </div>
-        <button class="btn-primary" type="submit">Send message</button>
-        <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
-      </form>
-    </div>
-  </section>
-
-  <!-- =========================== FOOTER =========================== -->
-  <footer>
-    <div class="container footer-inner">
-      <a class="wordmark" href="#top">Second <em>Story</em></a>
-      <a href="blog.html">Field Notes</a>
-        <a href="toolkit.html">The Toolkit</a>
-        <a href="partners.html">For Nonprofits</a>
-      <a href="https://www.linkedin.com/in/georgericciardella" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://www.instagram.com/secondstoryconsulting/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.youtube.com/@SecondStoryConsulting" target="_blank" rel="noopener">YouTube</a>
-      <span>© 2026 Second Story Consulting</span>
-      <a href="mailto:george@secondstoryconsulting.com">george@secondstoryconsulting.com</a>
-    </div>
-  </footer>
-
-  <script>
-    // Scroll-reveal: fade sections up as they enter the viewport
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!prefersReducedMotion && "IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            observer.unobserve(entry.target);
-            // Drop the reveal transition once it finishes so it can't
-            // fight the fast card-tilt transform that follows the mouse
-            setTimeout(() => entry.target.classList.remove("reveal", "in"), 700);
-          }
-        }
-      }, { threshold: 0.15 });
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    } else {
-      document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
+<footer>
+  <div class="container footer-inner">
+    <a class="wordmark" href="index.html">Second <em>Story</em></a>
+    <a href="blog.html">Field Notes</a>
+    <a href="toolkit.html">The Toolkit</a>
+    <a href="partners.html">For Nonprofits</a>
+    <a href="https://www.linkedin.com/in/georgericciardella" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/secondstoryconsulting/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/@SecondStoryConsulting" target="_blank" rel="noopener">YouTube</a>
+    <span>© 2026 Second Story Consulting</span>
+    <a href="mailto:george@secondstoryconsulting.com">george@secondstoryconsulting.com</a>
+  </div>
+</footer>
+<script>
+// Scroll-reveal: fade sections up as they enter the viewport
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (!prefersReducedMotion && "IntersectionObserver" in window) {
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) { entry.target.classList.add("in"); observer.unobserve(entry.target); }
     }
-
-    // Mouse-follow motion: cursor glow, hero parallax, and card tilt.
-    // Fine pointers only, and never when the user prefers reduced motion.
-    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!prefersReducedMotion && finePointer) {
-      const glow = document.createElement("div");
-      glow.className = "cursor-glow";
-      glow.setAttribute("aria-hidden", "true");
-      document.body.appendChild(glow);
-
-      const arc = document.querySelector(".hero-arc");
-      const heroImg = document.querySelector(".hero-photo .photo");
-      let mx = window.innerWidth / 2, my = window.innerHeight / 3;
-      let gx = mx, gy = my;
-
-      // The loop only runs while the glow is still catching up to the
-      // cursor, then stops — no idle CPU burn.
-      let raf = null;
-      const follow = () => {
-        gx += (mx - gx) * 0.08;
-        gy += (my - gy) * 0.08;
-        glow.style.transform = `translate(${gx}px, ${gy}px)`;
-        const nx = (mx / window.innerWidth - 0.5) * 2;
-        const ny = (my / window.innerHeight - 0.5) * 2;
-        if (arc) arc.style.transform = `translate(${nx * 16}px, ${ny * 10}px)`;
-        if (heroImg) heroImg.style.transform = `translate(${nx * -7}px, ${ny * -5}px)`;
-        raf = (Math.abs(mx - gx) > 0.5 || Math.abs(my - gy) > 0.5)
-          ? requestAnimationFrame(follow)
-          : null;
-      };
-      window.addEventListener("pointermove", (e) => {
-        mx = e.clientX;
-        my = e.clientY;
-        if (raf === null) raf = requestAnimationFrame(follow);
-      }, { passive: true });
-
-      // Service cards tilt gently toward the cursor
-      document.querySelectorAll(".card").forEach((card) => {
-        card.addEventListener("pointermove", (e) => {
-          const r = card.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width - 0.5;
-          const py = (e.clientY - r.top) / r.height - 0.5;
-          card.style.transform = `translateY(-4px) rotateX(${py * -4}deg) rotateY(${px * 4}deg)`;
-        }, { passive: true });
-        card.addEventListener("pointerleave", () => {
-          card.style.transform = "";
-        });
-      });
-    }
-
-    // Contact form: validate, submit to the Supabase edge function, show inline status
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+} else {
+  document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
+}
+// Contact form: validate, submit to the Supabase edge function, show inline status
     const SUBMIT_LEAD_URL = "https://ftaqjencknwpdjogkabd.supabase.co/functions/v1/submit-lead";
     const form = document.getElementById("contact-form");
     const note = document.getElementById("form-note");

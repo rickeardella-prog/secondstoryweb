@@ -4,172 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Toolkit — Second Story Consulting</title>
-  <meta name="description" content="The Toolkit: field-tested fundraising templates, calendars, checklists and playbooks from Second Story Consulting, packaged for the solo ED. Instant download.">
-
-  <link rel="icon" type="image/png" href="img/favicon.png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    /* Design tokens — kept in sync with index.html */
-    :root {
-      --paper: #FFFCF7;
-      --paper-soft: #F8F2E7;
-      --ink: #26221D;
-      --ink-dim: rgba(38, 34, 29, 0.70);
-      --ink-faint: rgba(38, 34, 29, 0.48);
-      --line: rgba(38, 34, 29, 0.14);
-      --coral: #E4573D;
-      --coral-deep: #C7442B;
-      --teal: #14766B;
-      --marigold: #DE9A2E;
-      --blush: #FAE7E0;
-      --mint:  #E3EFE9;
-      --gold:  #F8EDD5;
-      --font-display: "Spectral", Georgia, serif;
-      --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-      --container: 1120px;
-      --radius: 14px;
-      --radius-sm: 9px;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      pointer-events: none;
-      opacity: 0.045;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-    ::selection { background: var(--marigold); color: var(--ink); }
-    a { color: inherit; }
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--coral-deep); outline-offset: 3px; }
-    .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
-
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      background: rgba(255, 252, 247, 0.82);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-    .wordmark { font-family: var(--font-display); font-weight: 500; font-size: 1.18rem; letter-spacing: 0.01em; text-decoration: none; }
-    .wordmark em { font-style: italic; color: var(--coral-deep); }
-    .nav-links { display: flex; align-items: center; gap: 30px; font-size: 0.9rem; font-weight: 500; }
-    .nav-links a { text-decoration: none; color: var(--ink-dim); transition: color 0.2s ease; }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta { color: var(--paper) !important; background: var(--ink); padding: 9px 18px; border-radius: var(--radius-sm); transition: background 0.2s ease; }
-    .nav-cta:hover { background: var(--coral-deep); }
-
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 12px;
-      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--coral-deep); margin-bottom: 28px;
-    }
-    .eyebrow::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: var(--coral); }
-
-    .page-head { padding: 170px 0 30px; }
-    .page-head h1 {
-      font-family: var(--font-display); font-weight: 400;
-      font-size: clamp(2.4rem, 4.4vw, 3.6rem); line-height: 1.08;
-      letter-spacing: -0.02em; margin-bottom: 20px; text-wrap: balance;
-    }
-    .page-head h1 em { font-style: italic; font-weight: 500; color: var(--coral-deep); }
-    .page-head p { font-size: 1.12rem; color: var(--ink-dim); max-width: 560px; }
-
-    .posts { padding: 50px 0 110px; }
-    .post-list { display: grid; gap: 26px; max-width: 780px; }
-    .post-card {
-      display: block; text-decoration: none;
-      background: var(--paper-soft);
-      border-radius: var(--radius);
-      padding: 34px 32px;
-      box-shadow: 0 1px 2px rgba(38, 34, 29, 0.05), 0 14px 34px rgba(38, 34, 29, 0.10);
-      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
-    }
-    .post-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 2px 4px rgba(38, 34, 29, 0.06), 0 24px 50px rgba(38, 34, 29, 0.16);
-    }
-    .post-card:nth-child(3n+1) { background: var(--blush); }
-    .post-card:nth-child(3n+2) { background: var(--mint); }
-    .post-card:nth-child(3n)   { background: var(--gold); }
-    .post-date { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
-    .post-card h2 {
-      font-family: var(--font-display); font-weight: 500;
-      font-size: 1.5rem; line-height: 1.25; margin: 10px 0 12px;
-    }
-    .post-card p { color: var(--ink-dim); font-size: 0.98rem; margin-bottom: 16px; }
-    .read-more {
-      font-size: 0.92rem; font-weight: 500; color: var(--coral-deep);
-      border-bottom: 2px solid var(--marigold); padding-bottom: 2px;
-    }
-    .list-note { color: var(--ink-dim); font-size: 1.02rem; max-width: 560px; }
-
-    footer { background: var(--ink); color: rgba(255, 252, 247, 0.6); padding: 44px 0; }
-    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.88rem; }
-    footer .wordmark { color: var(--paper); }
-    footer .wordmark em { color: var(--coral); }
-    .footer-inner a { color: rgba(255, 252, 247, 0.75); text-decoration: none; }
-    .footer-inner a:hover { color: var(--paper); }
-
-    @media (max-width: 900px) {
-      .page-head { padding: 130px 0 10px; }
-      .nav-links { gap: 18px; }
-      .nav-links a:not(.nav-cta) { display: none; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .post-card { transition: none; }
-    }
-
-    /* Toolkit grid */
-    :root { --blush:#FAE7E0; --mint:#E3EFE9; --gold:#F8EDD5; --sky:#E4EBF1; }
-    .shop { padding: 24px 0 84px; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .card { --tint: var(--gold); background: var(--tint); border-radius: 18px; padding: 32px 28px; display: flex; flex-direction: column; align-items: flex-start; }
-    .card h3 { font-family: "Spectral", Georgia, serif; font-size: 1.25rem; line-height: 1.25; margin-bottom: 10px; }
-    .card p { color: rgba(38, 34, 29, 0.72); font-size: 0.96rem; margin-bottom: 18px; }
-    .card .nav-cta { margin-top: auto; }
-    .card-blush { --tint: var(--blush); }
-    .card-mint  { --tint: var(--mint); }
-    .card-gold  { --tint: var(--gold); }
-    .card-sky   { --tint: var(--sky); }
-    .card-wide { grid-column: 1 / -1; }
-    .card .eyebrow { margin-bottom: 10px; }
-    @media (max-width: 900px) { .cards { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 620px) { .cards { grid-template-columns: 1fr; } }
-  </style>
+  <meta name="description" content="Ten field-tested templates, calendars, checklists and playbooks for the solo ED, from Second Story Consulting.">
+  <meta name="theme-color" content="#0E2A45">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/house.css">
 </head>
 <body>
-
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a class="wordmark" href="index.html">Second <em>Story</em></a>
-      <div class="nav-links">
-        <a href="index.html#services">Services</a>
-        <a href="index.html#philosophy">Philosophy</a>
-        <a href="index.html#about">About</a>
-        <a href="blog.html">Field Notes</a>
-        <a href="toolkit.html">The Toolkit</a>
-        <a href="partners.html">For Nonprofits</a>
-        <a class="nav-cta" href="index.html#contact">Let's talk</a>
-      </div>
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="wordmark" href="index.html">Second <em>Story</em></a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#philosophy">Philosophy</a>
+      <a href="index.html#about">About</a>
+      <a href="blog.html">Field Notes</a>
+      <a href="toolkit.html">The Toolkit</a>
+      <a href="partners.html">For Nonprofits</a>
+      <a class="nav-cta" href="index.html#contact">Let's talk</a>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <header class="page-head">
     <div class="container">
@@ -183,30 +39,33 @@
     <div class="container">
       <div class="cards" id="toolkit-grid">
         <!-- TOOLKIT_ITEMS: hrefs are Stripe Payment Links, added when products are created in Stripe -->
-        <article class="card card-blush"><h3>Thank-You &amp; Stewardship Letter Library</h3><p>Ten letters for the moments that keep donors: first gift, monthly welcome, lapsed return, memorial, and more.</p><a class="nav-cta" href="https://buy.stripe.com/5kQ14fbDT4KB1SaerK2oE0a" data-stripe="toolkit-letters">Get it</a></article>
-        <article class="card card-mint"><h3>First 90 Days Stewardship Calendar</h3><p>The touch-by-touch plan from gift receipt to day 90, by gift size.</p><a class="nav-cta" href="https://buy.stripe.com/9B600b7nD5OF54m2J22oE09" data-stripe="toolkit-90days">Get it</a></article>
-        <article class="card card-gold"><h3>Stewardship Ladder Builder</h3><p>Define your giving tiers and what each one receives, so nobody is over-asked or forgotten.</p><a class="nav-cta" href="https://buy.stripe.com/cNidR1gYd3Gx8gydnG2oE08" data-stripe="toolkit-ladder">Get it</a></article>
-        <article class="card card-sky"><h3>Board Development Report</h3><p>The one-page monthly format that tells your board what matters and what you need.</p><a class="nav-cta" href="https://buy.stripe.com/eVqfZ90Zf1yp9kCabu2oE07" data-stripe="toolkit-board">Get it</a></article>
-        <article class="card card-blush"><h3>The Solo ED Weekly Rhythm</h3><p>A five-hour weekly development system built on ASK, THANK, REPORT.</p><a class="nav-cta" href="https://buy.stripe.com/6oU28j37n6SJ68q6Zi2oE06" data-stripe="toolkit-rhythm">Get it</a></article>
-        <article class="card card-mint"><h3>Donor Data Health Checklist</h3><p>Audit any donor database in an afternoon: dupes, gaps, segments, hygiene rhythm.</p><a class="nav-cta" href="https://buy.stripe.com/dRmeV5dM16SJ0O6dnG2oE05" data-stripe="toolkit-datahealth">Get it</a></article>
-        <article class="card card-gold"><h3>Event Capture Kit</h3><p>QR to record to next-morning follow-up: the complete flow that turns attendees into donors.</p><a class="nav-cta" href="https://buy.stripe.com/14AaEP7nD1yp40i83m2oE04" data-stripe="toolkit-event">Get it</a></article>
-        <article class="card card-sky"><h3>Year-End Campaign Playbook</h3><p>September to December 31: calendar, segments, message arc, results template.</p><a class="nav-cta" href="https://buy.stripe.com/28E4grbDT3Gx7cu4Ra2oE03" data-stripe="toolkit-yearend">Get it</a></article>
-        <article class="card card-blush"><h3>Grant Language Starter</h3><p>The reusable core case: boilerplate, need statement, outcomes language, budget narrative.</p><a class="nav-cta" href="https://buy.stripe.com/14AcMX8rHdh79kCbfy2oE02" data-stripe="toolkit-grants">Get it</a></article>
-        <article class="card card-mint"><h3>Donor Meeting One-Pager</h3><p>Walk into any donor or funder meeting prepared: snapshot, questions, the ask, listen-fors.</p><a class="nav-cta" href="https://buy.stripe.com/6oUbIT6jza4VcwOgzS2oE01" data-stripe="toolkit-meeting">Get it</a></article>
-        <article class="card card-gold card-wide"><span class="eyebrow">Best value</span><h3>The Complete Toolkit</h3><p>All ten tools, one download. Every template, calendar, checklist and playbook in the shop, yours forever.</p><a class="nav-cta" href="https://buy.stripe.com/3cIcMXeQ53GxbsK5Ve2oE00" data-stripe="toolkit-bundle">Get the complete toolkit</a></article>
+        <article class="card"><h3>Thank-You &amp; Stewardship Letter Library</h3><p>Ten letters for the moments that keep donors: first gift, monthly welcome, lapsed return, memorial, and more.</p><a class="nav-cta" href="https://buy.stripe.com/5kQ14fbDT4KB1SaerK2oE0a" data-stripe="toolkit-letters">Get it</a></article>
+        <article class="card"><h3>First 90 Days Stewardship Calendar</h3><p>The touch-by-touch plan from gift receipt to day 90, by gift size.</p><a class="nav-cta" href="https://buy.stripe.com/9B600b7nD5OF54m2J22oE09" data-stripe="toolkit-90days">Get it</a></article>
+        <article class="card"><h3>Stewardship Ladder Builder</h3><p>Define your giving tiers and what each one receives, so nobody is over-asked or forgotten.</p><a class="nav-cta" href="https://buy.stripe.com/cNidR1gYd3Gx8gydnG2oE08" data-stripe="toolkit-ladder">Get it</a></article>
+        <article class="card"><h3>Board Development Report</h3><p>The one-page monthly format that tells your board what matters and what you need.</p><a class="nav-cta" href="https://buy.stripe.com/eVqfZ90Zf1yp9kCabu2oE07" data-stripe="toolkit-board">Get it</a></article>
+        <article class="card"><h3>The Solo ED Weekly Rhythm</h3><p>A five-hour weekly development system built on ASK, THANK, REPORT.</p><a class="nav-cta" href="https://buy.stripe.com/6oU28j37n6SJ68q6Zi2oE06" data-stripe="toolkit-rhythm">Get it</a></article>
+        <article class="card"><h3>Donor Data Health Checklist</h3><p>Audit any donor database in an afternoon: dupes, gaps, segments, hygiene rhythm.</p><a class="nav-cta" href="https://buy.stripe.com/dRmeV5dM16SJ0O6dnG2oE05" data-stripe="toolkit-datahealth">Get it</a></article>
+        <article class="card"><h3>Event Capture Kit</h3><p>QR to record to next-morning follow-up: the complete flow that turns attendees into donors.</p><a class="nav-cta" href="https://buy.stripe.com/14AaEP7nD1yp40i83m2oE04" data-stripe="toolkit-event">Get it</a></article>
+        <article class="card"><h3>Year-End Campaign Playbook</h3><p>September to December 31: calendar, segments, message arc, results template.</p><a class="nav-cta" href="https://buy.stripe.com/28E4grbDT3Gx7cu4Ra2oE03" data-stripe="toolkit-yearend">Get it</a></article>
+        <article class="card"><h3>Grant Language Starter</h3><p>The reusable core case: boilerplate, need statement, outcomes language, budget narrative.</p><a class="nav-cta" href="https://buy.stripe.com/14AcMX8rHdh79kCbfy2oE02" data-stripe="toolkit-grants">Get it</a></article>
+        <article class="card"><h3>Donor Meeting One-Pager</h3><p>Walk into any donor or funder meeting prepared: snapshot, questions, the ask, listen-fors.</p><a class="nav-cta" href="https://buy.stripe.com/6oUbIT6jza4VcwOgzS2oE01" data-stripe="toolkit-meeting">Get it</a></article>
+        <article class="card card-wide"><span class="eyebrow">Best value</span><h3>The Complete Toolkit</h3><p>All ten tools, one download. Every template, calendar, checklist and playbook in the shop, yours forever.</p><a class="nav-cta" href="https://buy.stripe.com/3cIcMXeQ53GxbsK5Ve2oE00" data-stripe="toolkit-bundle">Get the complete toolkit</a></article>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="container footer-inner">
-      <a class="wordmark" href="index.html">Second <em>Story</em></a>
-      <span>© 2026 Second Story Consulting</span>
-      <span class="footer-social"><a href="https://www.linkedin.com/in/georgericciardella" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/secondstoryconsulting/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.youtube.com/@SecondStoryConsulting" target="_blank" rel="noopener">YouTube</a></span>
-      <a href="mailto:george@secondstoryconsulting.com">george@secondstoryconsulting.com</a>
-    </div>
-  </footer>
-
-  
+  <div class="container footer-inner">
+    <a class="wordmark" href="index.html">Second <em>Story</em></a>
+    <a href="blog.html">Field Notes</a>
+    <a href="toolkit.html">The Toolkit</a>
+    <a href="partners.html">For Nonprofits</a>
+    <a href="https://www.linkedin.com/in/georgericciardella" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/secondstoryconsulting/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/@SecondStoryConsulting" target="_blank" rel="noopener">YouTube</a>
+    <span>© 2026 Second Story Consulting</span>
+    <a href="mailto:george@secondstoryconsulting.com">george@secondstoryconsulting.com</a>
+  </div>
+</footer>
 </body>
 </html>
