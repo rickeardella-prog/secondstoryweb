@@ -1,9 +1,9 @@
 /* Second Story Consulting. The house with the light on. November 2026. */
 :root{
-  --night:#0E2A45; --night-deep:#071A2E; --night-soft:#16365A; --night-line:rgba(255,247,232,0.12);
+  --night:#013354; --night-deep:#051725; --night-soft:#0A4868; --night-line:rgba(255,247,232,0.12);
   --lamp:#F2A33A; --lamp-soft:#FFD58A; --lamp-deep:#D98A1F;
-  --paper:#FFF7E8; --paper-soft:#F6EBD6; --paper-line:rgba(14,42,69,0.14);
-  --ink:#0E2A45; --ink-dim:rgba(14,42,69,0.72); --ink-faint:rgba(14,42,69,0.5);
+  --paper:#FFF7E8; --paper-soft:#F6EBD6; --paper-line:rgba(11,42,66,0.14);
+  --ink:#0B2A42; --ink-dim:rgba(11,42,66,0.74); --ink-faint:rgba(11,42,66,0.52);
   --mist:#9FB4C7; --mist-dim:rgba(159,180,199,0.75);
   --font-display:"DM Serif Display",Georgia,serif; --font-body:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
   --container:1120px; --radius:16px; --radius-sm:10px;
@@ -24,7 +24,7 @@ a{color:inherit}
 .btn-ghost{color:var(--paper);border:1px solid var(--night-line)}
 .btn-ghost:hover{border-color:var(--lamp);color:var(--lamp-soft)}
 /* NAV */
-.nav{position:sticky;top:0;z-index:50;background:rgba(7,26,46,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--night-line)}
+.nav{position:sticky;top:0;z-index:50;background:rgba(5,23,37,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--night-line)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
 .wordmark{font-family:var(--font-display);font-size:1.5rem;color:var(--paper);text-decoration:none;letter-spacing:-0.01em}
 .nav-links{display:flex;align-items:center;gap:26px}
@@ -33,13 +33,13 @@ a{color:inherit}
 .nav-links .nav-cta{color:var(--night-deep);background:var(--lamp);padding:10px 20px}
 .nav-links .nav-cta:hover{background:var(--lamp-soft);color:var(--night-deep)}
 /* HERO */
-.hero{position:relative;background:var(--night);color:var(--paper);overflow:hidden;min-height:640px;display:flex;align-items:center}
-.hero-art{position:absolute;right:0;top:0;bottom:0;width:min(58%,860px);background:url('../img/house-night.png') right center/cover no-repeat}
-.hero-veil{position:absolute;inset:0;background:linear-gradient(90deg,var(--night) 0%,var(--night) 40%,rgba(14,42,69,0.72) 55%,rgba(14,42,69,0.05) 80%,rgba(14,42,69,0) 100%)}
-.hero-stars{position:absolute;inset:0;background-image:radial-gradient(rgba(255,247,232,0.35) 0.6px,transparent 0.8px);background-size:140px 140px;opacity:0.35;pointer-events:none}
-.hero .container{position:relative;z-index:2;padding:96px 0 110px}
-.hero-content{max-width:600px}
-.hero h1{font-size:clamp(2.6rem,5.4vw,4.4rem);color:var(--paper);margin:10px 0 22px}
+.hero{position:relative;color:var(--paper);overflow:hidden;background:linear-gradient(180deg,#003153 0%,#014365 55%,#051725 100%)}
+.hero-stars{position:absolute;inset:0;background-image:radial-gradient(rgba(255,247,232,0.35) 0.6px,transparent 0.8px);background-size:140px 140px;opacity:0.3;pointer-events:none}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.02fr 0.98fr;gap:30px;align-items:center;padding:56px 0 0}
+.hero-content{max-width:560px;padding:40px 0 72px}
+.hero-art{width:100%;aspect-ratio:1/1;max-height:720px;background:url('../img/house-night.png') center bottom/contain no-repeat;align-self:end;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 18%,#000 90%,transparent 100%),linear-gradient(180deg,transparent 0%,#000 16%,#000 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 18%,#000 90%,transparent 100%),linear-gradient(180deg,transparent 0%,#000 16%,#000 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
+.hero-veil{display:none}
+.hero h1{font-size:clamp(2.6rem,5.2vw,4.3rem);color:var(--paper);margin:10px 0 22px}
 .hero p{font-size:1.12rem;line-height:1.6;color:var(--mist);max-width:520px;margin-bottom:34px}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
 /* SECTIONS */
@@ -185,19 +185,16 @@ footer{background:var(--night-deep);color:var(--mist);padding:44px 0;border-top:
   .card-wide{grid-column:span 2}
   .head-row,.about-grid,.contact-grid{grid-template-columns:1fr}
   .head-row figure{max-width:420px}
-  .hero-art{width:70%;opacity:0.6}
+  .hero-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:720px){
   body{font-size:16px}
   section{padding:68px 0}
   .nav-links a:not(.nav-cta){display:none}
-  .hero{min-height:0;display:flex;flex-direction:column}
-  .hero .container{padding:64px 0 36px;order:1}
-  .hero-content{max-width:100%}
+  .hero-grid{grid-template-columns:1fr;gap:0;padding:40px 0 0}
+  .hero-content{max-width:100%;padding:24px 0 10px}
   .hero h1{font-size:2.5rem}
-  .hero-stars{order:0}
-  .hero-veil{display:none}
-  .hero-art{position:relative;order:2;width:100%;height:320px;background-position:center 30%;background-size:cover;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 30%);mask-image:linear-gradient(180deg,transparent 0%,#000 30%)}
+  .hero-art{aspect-ratio:1/1;max-height:420px;background-position:center bottom;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 100%);-webkit-mask-composite:source-over;mask-composite:add}
   .cards,.steps{grid-template-columns:1fr}
   .card-wide{grid-column:span 1}
   .profile-stats{grid-template-columns:repeat(3,1fr)}
